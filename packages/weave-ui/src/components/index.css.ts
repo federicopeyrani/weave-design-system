@@ -1,1 +1,1 @@
-export { buttonTokens } from "./Button/Button.css";
+export { primaryButton } from "@/components/Button/Button.css";

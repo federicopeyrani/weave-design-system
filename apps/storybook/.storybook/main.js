@@ -1,3 +1,7 @@
+import * as path from "path";
+
+const { VanillaExtractPlugin } = require("@vanilla-extract/webpack-plugin");
+
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
   stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -11,6 +15,21 @@ const config = {
     name: "@storybook/react-webpack5",
     options: {},
   },
+  webpackFinal: (baseConfig) => ({
+    ...baseConfig,
+    resolve: {
+      ...baseConfig.resolve,
+      alias: {
+        ...baseConfig.resolve.alias,
+        "weave-ui/src": path.resolve(
+          __dirname,
+          "../../../packages/weave-ui/src"
+        ),
+        "@": path.resolve(__dirname, "../../../packages/weave-ui/src"),
+      },
+    },
+    plugins: [...baseConfig.plugins, new VanillaExtractPlugin()],
+  }),
   docs: {
     autodocs: "tag",
   },

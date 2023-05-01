@@ -1,28 +1,35 @@
-import { createGlobalTheme } from "@vanilla-extract/css";
+import { createTheme } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import { prefixClassName } from "@/config";
 import { tokens } from "@/tokens/index.css";
 
-const className = `${prefixClassName}-button`;
-
-export const buttonTokens = createGlobalTheme(`.${className}`, {
-  button: {
-    primary: {
-      color: {
-        background: { default: tokens.ref.color.primary },
-      },
-    },
+export const [primaryStyle, primaryButton] = createTheme({
+  color: {
+    background: { default: tokens.ref.color.primary },
+    text: { default: tokens.ref.color.onPrimary },
   },
 });
 
 export const button = recipe({
-  base: className,
+  base: {
+    border: "none",
+    height: 32,
+    padding: "0 16px",
+    borderRadius: 12,
+    cursor: "pointer",
+    ":disabled": {
+      cursor: "default",
+    },
+  },
   variants: {
     type: {
-      primary: {
-        background: buttonTokens.button.primary.color.background.default,
-      },
+      primary: [
+        primaryStyle,
+        {
+          background: primaryButton.color.background.default,
+          color: primaryButton.color.text.default,
+        },
+      ],
     },
   },
 });

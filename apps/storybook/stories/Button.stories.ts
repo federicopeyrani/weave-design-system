@@ -1,14 +1,18 @@
 import { Meta, StoryObj } from "storybook";
-import { Button } from "weave-ui";
+import { PrimaryButton } from "weave-ui/src";
 
 export default {
-  title: "Button",
-  component: Button,
-} satisfies Meta<typeof Button>;
+  title: "Weave/Action/Button",
+  component: PrimaryButton,
+  argTypes: {
+    isDisabled: { type: "boolean" },
+  },
+} satisfies Meta<typeof PrimaryButton>;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof PrimaryButton>;
 
 export const Primary: Story = {
+  component: PrimaryButton,
   args: {
     children: "Button",
   },

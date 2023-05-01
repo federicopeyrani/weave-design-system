@@ -1,9 +1,12 @@
-import { createGlobalTheme } from "@vanilla-extract/css";
+import { createTheme } from "@vanilla-extract/css";
 
 import { core } from "@/tokens/core/index.css";
 
-export const refLight = createGlobalTheme(".weave-light", {
+export const [refLightThemeClassName, refLight] = createTheme({
   color: {
-    primary: core.color.primary["primary-40"],
+    primary: core.palette.primary40,
+    onPrimary: core.palette.primary100,
+    background: core.palette.neutral90,
+    onBackground: core.palette.neutral10,
   },
 });

@@ -1,10 +1,11 @@
-import { createGlobalTheme } from "@vanilla-extract/css";
+import { createTheme } from "@vanilla-extract/css";
 
-export const core = createGlobalTheme(".weave-core", {
-  color: {
-    primary: {
-      "primary-40": "red",
-    },
+import { tonalPalette } from "./color";
+
+export const [coreThemeClassName, core] = createTheme({
+  palette: {
+    ...tonalPalette("primary", "#7171ab"),
+    ...tonalPalette("neutral", "#000000"),
   },
   typography: {},
   dimension: {},

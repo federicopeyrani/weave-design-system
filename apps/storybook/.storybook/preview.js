@@ -1,13 +1,17 @@
-import "weave-ui/index.css";
 import { withThemeByClassName } from "@storybook/addon-styling";
+import {
+  coreThemeClassName,
+  refDarkThemeClassName,
+  refLightThemeClassName,
+} from "weave-ui/src";
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   decorators: [
     withThemeByClassName({
       themes: {
-        Light: "weave-core weave-light",
-        Dark: "weave-core weave-dark",
+        Light: `${coreThemeClassName} ${refLightThemeClassName}`,
+        Dark: `${coreThemeClassName} ${refDarkThemeClassName}`,
       },
       defaultTheme: "Light",
     }),
