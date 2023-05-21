@@ -1,26 +1,32 @@
-import { RecipeVariants } from "@vanilla-extract/recipes";
 import { useRef } from "react";
 import { AriaButtonProps, useButton } from "react-aria";
 
+import { BaseComponentProps } from "@/components/BaseComponentProps";
 import Component from "@/components/Component/Component";
+import getVariant from "@/utils/getVariant";
+import { RecipeVariantsNames, VariantSelector } from "@/utils/type";
 
-import { button } from "./Button.css";
+import { buttonClassName } from "./Button.css";
 
-export type ButtonProps = AriaButtonProps<"button">;
+type ButtonVariantsSelector = VariantSelector<
+  RecipeVariantsNames<typeof buttonClassName, "type">
+>;
 
-const Button: React.FC<
-  ButtonProps & {
-    _type: Exclude<RecipeVariants<typeof button>, undefined>["type"];
-  }
-> = ({ _type, children, ...props }) => {
+export type ButtonProps = BaseComponentProps &
+  AriaButtonProps<"button"> &
+  ButtonVariantsSelector;
+
+const Button: React.FC<ButtonProps> = ({ children, primary, ...props }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const { buttonProps } = useButton(props, ref);
+
+  const type = getVariant({ primary });
 
   return (
     <Component
       as="button"
-      elementRef={ref}
-      baseClassName={button({ type: _type })}
+      _ref={ref}
+      _className={buttonClassName({ type })}
       {...props}
       {...buttonProps}
     >

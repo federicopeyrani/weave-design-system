@@ -1,19 +1,34 @@
-import { Meta, StoryObj } from "storybook";
-import { PrimaryButton } from "weave-ui/src";
+import { Meta, StoryObj } from "@storybook/react";
+import { Button } from "weave-ui/src";
+
+import { customPrimary } from "./Button.css";
 
 export default {
   title: "Weave/Action/Button",
-  component: PrimaryButton,
+  component: Button,
   argTypes: {
+    primary: { type: "boolean" },
     isDisabled: { type: "boolean" },
   },
-} satisfies Meta<typeof PrimaryButton>;
+} satisfies Meta<typeof Button>;
 
-type Story = StoryObj<typeof PrimaryButton>;
+type Story = StoryObj<typeof Button>;
+
+const defaultArgs: Story["args"] = {
+  children: "Button",
+  primary: false,
+};
 
 export const Primary: Story = {
-  component: PrimaryButton,
   args: {
-    children: "Button",
+    ...defaultArgs,
+    primary: true,
+  },
+};
+
+export const Custom: Story = {
+  args: {
+    ...Primary.args,
+    className: customPrimary,
   },
 };

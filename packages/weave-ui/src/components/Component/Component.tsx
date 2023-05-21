@@ -8,20 +8,20 @@ import {
 export type ComponentProps<Type extends keyof ReactHTML> =
   ReactComponentProps<Type> & {
     as: Type;
-    elementRef?: ComponentProps<Type>["ref"];
-    baseClassName?: string;
+    _ref?: ComponentProps<Type>["ref"];
+    _className?: string;
   };
 
 export const Component = <Type extends keyof ReactHTML>({
   as,
-  elementRef,
-  baseClassName,
+  _ref,
+  _className,
   className,
   ...props
 }: ComponentProps<Type>) =>
   createElement(as, {
-    ref: elementRef,
-    className: cx(baseClassName, className),
+    ref: _ref,
+    className: cx(_className, className),
     ...props,
   });
 
