@@ -1,11 +1,5 @@
-import "./global.css";
+import "@/global.css";
 
-export * from "./components";
-export { theme } from "./index.css";
-export {
-  compThemeClassName,
-  coreThemeClassName,
-  refDarkThemeClassName,
-  refLightThemeClassName,
-  tonalPalette,
-} from "./tokens";
+export * from "@/components";
+export { tokens } from "@/index.css";
+export { styles, tonalPalette } from "@/tokens";

@@ -1,10 +1,10 @@
 import { style } from "@vanilla-extract/css";
-import { theme } from "weave-ui/src";
+import { tokens } from "weave-ui/src";
 
-export const customPrimary = style({
+export const customFilled = style({
   vars: {
-    [theme.comp.primaryButton.container.color]: "255 0 0",
-    [theme.comp.primaryButton.label.color]: "0 0 255",
-    [theme.comp.primaryButton.label.weight]: "800",
+    [tokens.comp.filledButton.container.color]: "255 0 0",
+    [tokens.comp.filledButton.label.color]: "0 0 255",
+    [tokens.comp.filledButton.label.weight]: "800",
   },
 });

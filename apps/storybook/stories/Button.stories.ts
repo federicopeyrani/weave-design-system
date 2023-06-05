@@ -1,13 +1,20 @@
-import { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "weave-ui/src";
 
-import { customPrimary } from "./Button.css";
+import { customFilled } from "./Button.css";
 
 export default {
   title: "Weave/Action/Button",
   component: Button,
   argTypes: {
+    filled: { type: "boolean" },
+    tonal: { type: "boolean" },
+    text: { type: "boolean" },
     primary: { type: "boolean" },
+    secondary: { type: "boolean" },
+    labelSmall: { type: "boolean" },
+    labelMedium: { type: "boolean" },
+    labelLarge: { type: "boolean" },
     isDisabled: { type: "boolean" },
   },
 } satisfies Meta<typeof Button>;
@@ -16,19 +23,35 @@ type Story = StoryObj<typeof Button>;
 
 const defaultArgs: Story["args"] = {
   children: "Button",
-  primary: false,
+  filled: false,
+  tonal: false,
+  text: false,
 };
 
-export const Primary: Story = {
+export const Filled: Story = {
   args: {
     ...defaultArgs,
-    primary: true,
+    filled: true,
+  },
+};
+
+export const Tonal: Story = {
+  args: {
+    ...defaultArgs,
+    tonal: true,
+  },
+};
+
+export const Text: Story = {
+  args: {
+    ...defaultArgs,
+    text: true,
   },
 };
 
 export const Custom: Story = {
   args: {
-    ...Primary.args,
-    className: customPrimary,
+    ...Filled.args,
+    className: customFilled,
   },
 };

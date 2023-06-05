@@ -1,9 +1,11 @@
 import { recipe } from "@vanilla-extract/recipes";
 
-import tokens, { createCompTheme, createCompVariantOverride } from "@/tokens";
+import tokens, { schemas } from "@/tokens";
 import applyShapeTokens from "@/utils/applyShapeTokens";
 import applyTypeTokens from "@/utils/applyTypeTokens";
 import color from "@/utils/color";
+import createTokens from "@/utils/createTokens";
+import createVariantOverride from "@/utils/createVariantOverride.css";
 
 const container = color();
 
@@ -11,7 +13,7 @@ const label = color();
 
 const outline = color();
 
-const contract = createCompTheme({
+const [contract, model] = createTokens({
   container: {
     color: "255 255 255",
     opacity: "1",
@@ -22,7 +24,7 @@ const contract = createCompTheme({
   label: {
     color: "255 255 255",
     opacity: "1",
-    ...tokens.ref.type.labelMedium,
+    ...schemas.tokens.type,
   },
   transition: {
     duration: tokens.ref.motion.durationShort2,
@@ -37,60 +39,111 @@ const contract = createCompTheme({
   },
   focus: {
     outline: {
-      color: "none",
+      color: "255 255 255",
       opacity: "0.24",
       width: "4px",
     },
   },
+  pressed: {},
 });
 
-const [primaryVars, primaryButton] = createCompVariantOverride(contract, {
+const [filled, filledButton] = createVariantOverride(contract, model, {
   container: {
-    color: tokens.ref.color.primary,
+    color: schemas.tokens.color.color,
   },
   label: {
-    color: tokens.ref.color.onPrimary,
+    color: schemas.tokens.color.onColor,
   },
   focus: {
     outline: {
-      color: tokens.ref.color.primary,
+      color: schemas.tokens.color.color,
     },
   },
 });
 
-export default { primaryButton };
-
-export const buttonClassName = recipe({
-  base: {
-    vars: {
-      [container.var]: contract.container.color,
-      [container.opacity]: contract.container.opacity,
-      [label.var]: contract.label.color,
-      [label.opacity]: contract.label.opacity,
-      [outline.var]: contract.focus.outline.color,
-      [outline.opacity]: contract.focus.outline.opacity,
-    },
-    display: "inline-flex",
-    alignItems: "center",
-    background: container.color,
-    color: label.color,
-    border: "none",
-    height: contract.container.height,
-    padding: `0 ${contract.container.padding}`,
-    cursor: "pointer",
-    outline: `0 solid ${outline.color}`,
-    transition: `outline-width ${contract.transition.duration} ease`,
-    ...applyTypeTokens(contract.label),
-    ...applyShapeTokens(contract.container.shape),
-    ":disabled": {
-      cursor: "default",
+const [tonal, tonalButton] = createVariantOverride(contract, model, {
+  container: {
+    color: schemas.tokens.color.colorContainer,
+  },
+  label: {
+    color: schemas.tokens.color.color,
+  },
+  focus: {
+    outline: {
+      color: schemas.tokens.color.color,
     },
   },
-  variants: {
-    type: {
-      primary: { vars: primaryVars },
-      tonal: {},
-      text: {},
+});
+
+const [text, textButton] = createVariantOverride(contract, model, {
+  container: {
+    opacity: "0",
+  },
+  label: {
+    color: schemas.tokens.color.color,
+  },
+  focus: {
+    outline: {
+      color: schemas.tokens.color.color,
     },
+  },
+});
+
+export const button = { filledButton, tonalButton, textButton };
+
+export const buttonClassName = recipe({
+  base: [
+    {
+      vars: {
+        [container.var]: contract.container.color,
+        [container.opacity]: contract.container.opacity,
+        [label.var]: contract.label.color,
+        [label.opacity]: contract.label.opacity,
+        [outline.var]: contract.focus.outline.color,
+        [outline.opacity]: contract.focus.outline.opacity,
+      },
+      display: "inline-flex",
+      alignItems: "center",
+      background: container.color,
+      color: label.color,
+      border: "none",
+      height: contract.container.height,
+      padding: `0 ${contract.container.padding}`,
+      cursor: "pointer",
+      outline: `0 solid ${outline.color}`,
+      transition: `outline-width ${contract.transition.duration} ease`,
+      ":disabled": {
+        vars: {
+          [container.opacity]: contract.disabled.container.opacity,
+          [label.opacity]: contract.disabled.label.opacity,
+        },
+        cursor: "default",
+      },
+      ":focus": {
+        vars: {
+          [outline.var]: contract.focus.outline.color,
+          [outline.opacity]: contract.focus.outline.opacity,
+        },
+        outlineWidth: contract.focus.outline.width,
+      },
+    },
+    applyTypeTokens(contract.label),
+    applyShapeTokens(contract.container.shape),
+  ],
+  variants: {
+    state: {
+      pressed: {},
+    },
+    variant: {
+      filled: [filled, schemas.variants.color.primary],
+      tonal: [tonal, schemas.variants.color.secondary],
+      text: [text, schemas.variants.color.primary],
+    },
+    color: schemas.variants.color,
+    type: schemas.variants.type,
+  },
+  defaultVariants: {
+    variant: "filled",
+    type: "labelMedium",
   },
 });

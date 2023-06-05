@@ -1,6 +1,6 @@
 import { argbFromHex, TonalPalette } from "@material/material-color-utilities";
 
-import { HexColor, RGBColorFormat } from "@/utils/color";
+import type { HexColorFormat, RGBColorFormat } from "@/model/Color";
 
 const tones = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100] as const;
 
@@ -24,7 +24,7 @@ const defineColor = (color: number): RGBColorFormat => {
 
 export const tonalPalette = <Name extends string>(
   name: Name,
-  sourceColor: HexColor
+  sourceColor: HexColorFormat
 ): Palette<Name> => {
   const argbSourceColor = argbFromHex(sourceColor);
   const palette = TonalPalette.fromInt(argbSourceColor);

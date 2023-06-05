@@ -1,9 +1,8 @@
-import { createTheme } from "@vanilla-extract/css";
-
 import { core } from "@/tokens/core/index.css";
 import { duration } from "@/tokens/ref/motion";
+import createTokens from "@/utils/createTokens";
 
-export const [refCommonThemeClassName, refCommon] = createTheme({
+export const [refCommon, refCommonValues] = createTokens({
   shape: {
     rounded: {
       startStart: core.grid.small3,
@@ -13,8 +12,16 @@ export const [refCommonThemeClassName, refCommon] = createTheme({
     },
   },
   type: {
+    labelLarge: {
+      size: core.type.scale1,
+      weight: core.type.weightMedium,
+    },
     labelMedium: {
       size: core.type.scale0,
+      weight: core.type.weightMedium,
+    },
+    labelSmall: {
+      size: core.type["scale-1"],
       weight: core.type.weightMedium,
     },
   },

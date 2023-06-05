@@ -1,14 +1,7 @@
 import { createVar, fallbackVar } from "@vanilla-extract/css";
 
-import { CSSVariable } from "@/utils/CSSVariable";
-import { FallbackCSSVariable } from "@/utils/FallbackCSSVariable";
-
-export type HexColor = `#${string}`;
-
-export type RGBColorFormat = `${number} ${number} ${number}`;
-
-export type RGBColor<T extends RGBColorFormat | CSSVariable> =
-  `rgb(${T} / ${FallbackCSSVariable})`;
+import type { RGBColor, RGBColorFormat } from "@/model/Color";
+import type { CSSVariable } from "@/model/CSSVariable";
 
 export default function color(
   value?: undefined,

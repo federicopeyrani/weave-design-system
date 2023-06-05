@@ -1,11 +1,10 @@
-import { createTheme } from "@vanilla-extract/css";
-
 import { scale } from "@/tokens/core/dimension";
 import { typescale } from "@/tokens/core/typescale";
+import createTokens from "@/utils/createTokens";
 
 import { tonalPalette } from "./color";
 
-export const [coreThemeClassName, core] = createTheme({
+export const [core, coreValues] = createTokens({
   palette: {
     ...tonalPalette("primary", "#7171ab"),
     ...tonalPalette("secondary", "#908ea5"),

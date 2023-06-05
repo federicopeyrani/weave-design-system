@@ -1,7 +1,7 @@
 import type { StyleRule } from "@vanilla-extract/css";
 
 import type tokens from "@/tokens";
-import { ValuesOf } from "@/utils/type";
+import type { ValuesOf } from "@/utils/Types";
 
 export type TypeTokens = ValuesOf<typeof tokens.ref.type>;
 

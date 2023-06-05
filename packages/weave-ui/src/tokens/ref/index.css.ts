@@ -1,20 +1,8 @@
-import { cx } from "classix";
+import { refCommon } from "./common.css";
+import { refTheme } from "./light.css";
 
-import { refCommon, refCommonThemeClassName } from "./common.css";
-import { refDarkThemeClassName as _refDarkThemeClassName } from "./dark.css";
-import {
-  refLight,
-  refLightThemeClassName as _refLightThemeClassName,
-} from "./light.css";
+export const ref = { ...refCommon, ...refTheme };
 
-export const ref = { ...refCommon, ...refLight };
-
-export const refLightThemeClassName = cx(
-  refCommonThemeClassName,
-  _refLightThemeClassName
-);
-
-export const refDarkThemeClassName = cx(
-  refCommonThemeClassName,
-  _refDarkThemeClassName
-);
+export { refCommon, refCommonValues } from "./common.css";
+export { refDarkValues } from "./dark.css";
+export { refLightValues, refTheme } from "./light.css";

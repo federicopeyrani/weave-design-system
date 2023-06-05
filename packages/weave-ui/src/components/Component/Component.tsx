@@ -5,12 +5,21 @@ import {
   ReactHTML,
 } from "react";
 
-export type ComponentProps<Type extends keyof ReactHTML> =
-  ReactComponentProps<Type> & {
-    as: Type;
-    _ref?: ComponentProps<Type>["ref"];
-    _className?: string;
-  };
+import type { BaseComponentProps } from "@/components/BaseComponentProps";
+import asArray from "@/utils/asArray";
+
+type ComponentArguments<Type extends keyof ReactHTML> = {
+  as: Type;
+  _ref?: ReactComponentProps<Type>["ref"];
+  _className?: BaseComponentProps["className"];
+};
+
+export type ComponentProps<Type extends keyof ReactHTML> = Omit<
+  ReactComponentProps<Type>,
+  "ref" | "className"
+> &
+  BaseComponentProps &
+  ComponentArguments<Type>;
 
 export const Component = <Type extends keyof ReactHTML>({
   as,
@@ -21,7 +30,7 @@ export const Component = <Type extends keyof ReactHTML>({
 }: ComponentProps<Type>) =>
   createElement(as, {
     ref: _ref,
-    className: cx(_className, className),
+    className: cx(...asArray(_className), ...asArray(className)),
     ...props,
   });
 

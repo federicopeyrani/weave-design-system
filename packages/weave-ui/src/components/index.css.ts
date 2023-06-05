@@ -1,5 +1,5 @@
-import Button from "@/components/Button/Button.css";
+import { button } from "@/components/Button/Button.css";
 
-const comp = { ...Button };
+const comp = { ...button };
 
 export default comp;
