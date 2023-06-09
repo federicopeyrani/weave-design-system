@@ -5,6 +5,7 @@ import { core, coreValues } from "@/tokens/core/index.css";
 import {
   refCommon,
   refCommonValues,
+  refDarkValues,
   refLightValues,
   refTheme,
 } from "@/tokens/ref/index.css";
@@ -33,7 +34,7 @@ export const styles = recipe({
       },
       dark: {
         "@layer": {
-          [stylesLayer]: { vars: assignVars(refTheme, refLightValues) },
+          [stylesLayer]: { vars: assignVars(refTheme, refDarkValues) },
         },
       },
     },
