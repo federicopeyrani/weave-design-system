@@ -1,5 +1,7 @@
+import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
+import { touchRipple } from "@/components/TouchRipple/TouchRipple.css";
 import tokens, { schemas } from "@/tokens";
 import applyShapeTokens from "@/utils/applyShapeTokens";
 import applyTypeTokens from "@/utils/applyTypeTokens";
@@ -7,13 +9,7 @@ import color from "@/utils/color";
 import createTokens from "@/utils/createTokens";
 import createVariantOverride from "@/utils/createVariantOverride.css";
 
-const container = color();
-
-const label = color();
-
-const outline = color();
-
-const [contract, model] = createTokens({
+const [contract, values] = createTokens({
   container: {
     color: "255 255 255",
     opacity: "1",
@@ -44,10 +40,20 @@ const [contract, model] = createTokens({
       width: "4px",
     },
   },
-  pressed: {},
+  pressed: {
+    ripple: {
+      color: "none",
+    },
+  },
 });
 
-const [filled, filledButton] = createVariantOverride(contract, model, {
+const container = color();
+
+const label = color();
+
+const outline = color();
+
+const [filled, filledButton] = createVariantOverride(contract, values, {
   container: {
     color: schemas.tokens.color.color,
   },
@@ -59,11 +65,35 @@ const [filled, filledButton] = createVariantOverride(contract, model, {
       color: schemas.tokens.color.color,
     },
   },
+  pressed: {
+    ripple: {
+      color: schemas.tokens.color.onColor,
+    },
+  },
 });
 
-const [tonal, tonalButton] = createVariantOverride(contract, model, {
+const [tonal, tonalButton] = createVariantOverride(contract, values, {
   container: {
     color: schemas.tokens.color.colorContainer,
+  },
+  label: {
+    color: schemas.tokens.color.onColorContainer,
+  },
+  focus: {
+    outline: {
+      color: schemas.tokens.color.color,
+    },
+  },
+  pressed: {
+    ripple: {
+      color: schemas.tokens.color.onColorContainer,
+    },
+  },
+});
+
+const [text, textButton] = createVariantOverride(contract, values, {
+  container: {
+    opacity: "0",
   },
   label: {
     color: schemas.tokens.color.color,
@@ -73,17 +103,8 @@ const [tonal, tonalButton] = createVariantOverride(contract, model, {
       color: schemas.tokens.color.color,
     },
   },
-});
-
-const [text, textButton] = createVariantOverride(contract, model, {
-  container: {
-    opacity: "0",
-  },
-  label: {
-    color: schemas.tokens.color.color,
-  },
-  focus: {
-    outline: {
+  pressed: {
+    ripple: {
       color: schemas.tokens.color.color,
     },
   },
@@ -96,12 +117,14 @@ export const buttonClassName = recipe({
     {
       vars: {
         [container.var]: contract.container.color,
-        [container.opacity]: contract.container.opacity,
+        [container.opacityVar]: contract.container.opacity,
         [label.var]: contract.label.color,
-        [label.opacity]: contract.label.opacity,
+        [label.opacityVar]: contract.label.opacity,
         [outline.var]: contract.focus.outline.color,
-        [outline.opacity]: contract.focus.outline.opacity,
+        [outline.opacityVar]: contract.focus.outline.opacity,
       },
+      position: "relative",
+      overflow: "hidden",
       display: "inline-flex",
       alignItems: "center",
       background: container.color,
@@ -114,15 +137,15 @@ export const buttonClassName = recipe({
       transition: `outline-width ${contract.transition.duration} ease`,
       ":disabled": {
         vars: {
-          [container.opacity]: contract.disabled.container.opacity,
-          [label.opacity]: contract.disabled.label.opacity,
+          [container.opacityVar]: contract.disabled.container.opacity,
+          [label.opacityVar]: contract.disabled.label.opacity,
         },
         cursor: "default",
       },
       ":focus": {
         vars: {
           [outline.var]: contract.focus.outline.color,
-          [outline.opacity]: contract.focus.outline.opacity,
+          [outline.opacityVar]: contract.focus.outline.opacity,
         },
         outlineWidth: contract.focus.outline.width,
       },
@@ -131,19 +154,26 @@ export const buttonClassName = recipe({
     applyShapeTokens(contract.container.shape),
   ],
   variants: {
-    state: {
-      pressed: {},
-    },
-    variant: {
-      filled: [filled, schemas.variants.color.primary],
-      tonal: [tonal, schemas.variants.color.secondary],
-      text: [text, schemas.variants.color.primary],
-    },
+    variant: { filled, tonal, text },
     color: schemas.variants.color,
     type: schemas.variants.type,
   },
+  compoundVariants: [
+    {
+      variants: { variant: "tonal", color: undefined },
+      style: schemas.variants.color.secondary,
+    },
+  ],
   defaultVariants: {
     variant: "filled",
+    color: "primary",
     type: "labelMedium",
+  },
+});
+
+export const touchRippleClassName = style({
+  vars: {
+    [touchRipple.background.color]: contract.pressed.ripple.color,
+    [touchRipple.noise.color]: contract.pressed.ripple.color,
   },
 });

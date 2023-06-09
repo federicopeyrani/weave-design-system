@@ -9,4 +9,4 @@ export type Contract = {
   [key: string]: CSSVariable | Contract;
 };
 
-export type ContractOf<T extends Tokens> = MapLeaves<Tokens, CSSVariable>;
+export type ContractOf<T extends Tokens> = MapLeaves<T, CSSVariable>;

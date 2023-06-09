@@ -9,6 +9,7 @@ export const [core, coreValues] = createTokens({
     ...tonalPalette("primary", "#7171ab"),
     ...tonalPalette("secondary", "#908ea5"),
     ...tonalPalette("neutral", "#000000"),
+    ...tonalPalette("error", "#c72907"),
   },
   type: {
     weightNormal: "400",
