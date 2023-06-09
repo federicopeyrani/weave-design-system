@@ -4,8 +4,6 @@
     "lint": {},
     "lint:fix": {},
     "build": {},
-    "storybook:build": {
-      "dependsOn": ["^build"]
-    }
+    "storybook:build": {}
   }
 }
