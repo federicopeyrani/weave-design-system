@@ -5,8 +5,13 @@
     "lint:fix": {},
     "build": {},
     "storybook:build": {
+      "inputs": [
+        "apps/storybook/.storybook/**",
+        "apps/storybook/stories/**",
+        "packages/weave-ui/src/**"
+      ],
       "outputs": [
-        "apps/storybook/storybook-static"
+        "apps/storybook/storybook-static/**"
       ]
     }
   }
