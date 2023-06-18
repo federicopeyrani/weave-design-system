@@ -4,6 +4,10 @@
     "lint": {},
     "lint:fix": {},
     "build": {},
-    "storybook:build": {}
+    "storybook:build": {
+      "outputs": [
+        "apps/storybook/storybook-static"
+      ]
+    }
   }
 }
