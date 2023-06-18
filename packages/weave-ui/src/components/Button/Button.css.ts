@@ -34,10 +34,15 @@ const [contract, values] = createTokens({
     },
   },
   focus: {
+    container: {
+      color: "255 255 255",
+      opacity: "1",
+    },
     outline: {
       color: "255 255 255",
       opacity: "0.24",
-      width: "4px",
+      width: "2px",
+      offset: "2px",
     },
   },
   pressed: {
@@ -61,6 +66,9 @@ const [filled, filledButton] = createVariantOverride(contract, values, {
     color: schemas.tokens.color.onColor,
   },
   focus: {
+    container: {
+      color: schemas.tokens.color.color,
+    },
     outline: {
       color: schemas.tokens.color.color,
     },
@@ -80,6 +88,9 @@ const [tonal, tonalButton] = createVariantOverride(contract, values, {
     color: schemas.tokens.color.onColorContainer,
   },
   focus: {
+    container: {
+      color: schemas.tokens.color.colorContainer,
+    },
     outline: {
       color: schemas.tokens.color.color,
     },
@@ -99,8 +110,14 @@ const [text, textButton] = createVariantOverride(contract, values, {
     color: schemas.tokens.color.color,
   },
   focus: {
-    outline: {
+    container: {
       color: schemas.tokens.color.color,
+      opacity: "0.12",
+    },
+    outline: {
+      width: "0",
+      offset: "0",
+      opacity: "0",
     },
   },
   pressed: {
@@ -121,7 +138,7 @@ export const buttonClassName = recipe({
         [label.var]: contract.label.color,
         [label.opacityVar]: contract.label.opacity,
         [outline.var]: contract.focus.outline.color,
-        [outline.opacityVar]: contract.focus.outline.opacity,
+        [outline.opacityVar]: "0",
       },
       position: "relative",
       overflow: "hidden",
@@ -133,8 +150,10 @@ export const buttonClassName = recipe({
       height: contract.container.height,
       padding: `0 ${contract.container.padding}`,
       cursor: "pointer",
-      outline: `0 solid ${outline.color}`,
-      transition: `outline-width ${contract.transition.duration} ease`,
+      outline: `${contract.focus.outline.width} solid ${outline.color}`,
+      outlineOffset: contract.focus.outline.offset,
+      transition: `background ${contract.transition.duration} ease, 
+        outline-color ${contract.transition.duration} ease`,
       ":disabled": {
         vars: {
           [container.opacityVar]: contract.disabled.container.opacity,
@@ -144,10 +163,10 @@ export const buttonClassName = recipe({
       },
       ":focus": {
         vars: {
-          [outline.var]: contract.focus.outline.color,
+          [container.var]: contract.focus.container.color,
+          [container.opacityVar]: contract.focus.container.opacity,
           [outline.opacityVar]: contract.focus.outline.opacity,
         },
-        outlineWidth: contract.focus.outline.width,
       },
     },
     applyTypeTokens(contract.label),
