@@ -6,8 +6,9 @@ import tokens from "@/tokens";
 import color from "@/utils/color";
 import createTokensTheme from "@/utils/createTokensTheme";
 
+const maxRippleSize = 800;
+
 const [contract, theme] = createTokensTheme({
-  width: "800px",
   x: "0px",
   y: "0px",
   background: {
@@ -26,7 +27,7 @@ const background = color(contract.background);
 
 const expand = keyframes({
   "0%": { width: "0" },
-  "100%": { width: touchRipple.width },
+  "100%": { width: `${maxRippleSize}px` },
 });
 
 const fadeInOut = keyframes({
@@ -35,23 +36,32 @@ const fadeInOut = keyframes({
   "100%": { opacity: "0" },
 });
 
-export const touchRippleClassName = recipe({
-  base: [
-    theme,
-    {
-      position: "absolute",
-      overflow: "hidden",
-      pointerEvents: "none",
-      background: background.color,
-      borderRadius: "50%",
-      transform: "translate(-50%, -50%)",
-      width: touchRipple.width,
-      aspectRatio: "1 / 1",
-      left: touchRipple.x,
-      top: touchRipple.y,
-      transition: "background 1s ease-out",
-    },
-  ],
+export const touchRippleClassName = style([
+  theme,
+  {
+    position: "absolute",
+    overflow: "hidden",
+    pointerEvents: "none",
+    width: "100%",
+    height: "100%",
+    left: "0",
+    top: "0",
+    transition: "background 1s ease-out",
+  },
+]);
+
+export const touchRippleBackgroundClassName = recipe({
+  base: {
+    overflow: "hidden",
+    background: background.color,
+    width: `${maxRippleSize}px`,
+    aspectRatio: "1 / 1",
+    borderRadius: "50%",
+    position: "absolute",
+    left: touchRipple.x,
+    top: touchRipple.y,
+    transform: "translate(-50%, -50%)",
+  },
   variants: {
     state: {
       active: {

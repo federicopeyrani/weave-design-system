@@ -16,7 +16,6 @@ export const [text, textButton] = createVariantOverride(contract, values, {
     },
     outline: {
       width: "0",
-      offset: "0",
       opacity: "0",
     },
   },

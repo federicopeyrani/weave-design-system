@@ -33,8 +33,7 @@ export const [contract, values] = createTokens({
     outline: {
       color: "255 255 255",
       opacity: "0.24",
-      width: "2px",
-      offset: "2px",
+      width: "4px",
     },
   },
   pressed: {

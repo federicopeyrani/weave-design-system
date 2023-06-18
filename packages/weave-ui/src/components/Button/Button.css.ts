@@ -31,7 +31,6 @@ export const buttonClassName = recipe({
         [outline.opacityVar]: "0",
       },
       position: "relative",
-      overflow: "hidden",
       display: "inline-flex",
       alignItems: "center",
       background: container.color,
@@ -40,10 +39,21 @@ export const buttonClassName = recipe({
       height: contract.container.height,
       padding: `0 ${contract.container.padding}`,
       cursor: "pointer",
-      outline: `${contract.focus.outline.width} solid ${outline.color}`,
-      outlineOffset: contract.focus.outline.offset,
-      transition: `background ${contract.transition.duration} ease, 
-        outline-color ${contract.transition.duration} ease`,
+      outline: "none",
+      transition: `background ${contract.transition.duration} ease`,
+      userSelect: "none",
+      WebkitTapHighlightColor: "transparent",
+      "::before": {
+        content: "''",
+        position: "absolute",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        boxShadow: `0 0 0 ${contract.focus.outline.width} ${outline.color}`,
+        ...applyShapeTokens(contract.container.shape),
+        transition: `box-shadow ${contract.transition.duration} ease`,
+      },
       ":disabled": {
         vars: {
           [container.opacityVar]: contract.disabled.container.opacity,
@@ -80,9 +90,13 @@ export const buttonClassName = recipe({
   },
 });
 
-export const touchRippleClassName = style({
-  vars: {
-    [touchRipple.background.color]: contract.pressed.ripple.color,
-    [touchRipple.noise.color]: contract.pressed.ripple.color,
+export const touchRippleClassName = style([
+  {
+    vars: {
+      [touchRipple.background.color]: contract.pressed.ripple.color,
+      [touchRipple.noise.color]: contract.pressed.ripple.color,
+    },
+    WebkitMaskImage: "-webkit-radial-gradient(white, black)",
   },
-});
+  applyShapeTokens(contract.container.shape),
+]);

@@ -2,10 +2,13 @@ import React from "react";
 
 import { BaseComponentProps } from "@/components/BaseComponentProps";
 import Component from "@/components/Component/Component";
-import GrainyFilter from "@/components/GrainyFilter/GrainyFilter";
+import GrainyFilter, {
+  GrainyFilterProps,
+} from "@/components/GrainyFilter/GrainyFilter";
 import {
   noiseClassName,
   touchRipple,
+  touchRippleBackgroundClassName,
   touchRippleClassName,
 } from "@/components/TouchRipple/TouchRipple.css";
 
@@ -16,24 +19,42 @@ export type TouchRipplePosition = {
 
 export type TouchRippleProps = BaseComponentProps &
   Partial<TouchRipplePosition> & {
+    size?: number;
     disableAnimate?: boolean;
+    grainyFilterProps?: GrainyFilterProps;
   };
 
 const TouchRipple: React.FC<TouchRippleProps> = ({
   disableAnimate = false,
   x = "0",
   y = "0",
+  size = 200,
+  grainyFilterProps: {
+    size: grainyFilterSize = size,
+    ...grainyFilterProps
+  } = {},
   ...props
 }) => (
   <Component
     as="div"
-    _className={touchRippleClassName({
-      state: disableAnimate ? undefined : "active",
-    })}
-    _styles={{ [touchRipple.x]: x, [touchRipple.y]: y }}
+    _className={touchRippleClassName}
+    _styles={{
+      [touchRipple.x]: x,
+      [touchRipple.y]: y,
+    }}
     {...props}
   >
-    <GrainyFilter className={noiseClassName} size={800} />
+    <div
+      className={touchRippleBackgroundClassName({
+        state: disableAnimate ? undefined : "active",
+      })}
+    >
+      <GrainyFilter
+        className={noiseClassName}
+        size={grainyFilterSize}
+        {...grainyFilterProps}
+      />
+    </div>
   </Component>
 );
 
