@@ -3,7 +3,7 @@ import { tokens } from "weave-ui/src";
 import { Button } from "weave-ui/src/components";
 
 export default {
-  title: "Weave/Action/Button",
+  title: "Components/Actions/Button",
   component: Button,
   argTypes: {
     styles: { control: "object" },
@@ -16,12 +16,12 @@ export default {
       control: "inline-radio",
     },
     type: {
-      type: "select",
+      control: "select",
       options: ["labelSmall", "labelMedium", "labelLarge"],
     },
     isDisabled: { type: "boolean" },
     // actions
-    onClick: { action: "onClick" },
+    onPress: { action: "onClick" },
     onPressStart: { action: "onPressStart" },
     onPressEnd: { action: "onPressEnd" },
   },
