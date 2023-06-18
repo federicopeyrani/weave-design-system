@@ -1,0 +1,18 @@
+import { Controls, Meta, Source, Story } from "@storybook/blocks";
+import * as ButtonStories from "./components/actions/Button.stories";
+import { controlsContainer } from "./Introduction.css";
+
+<Meta title="Introduction" />
+
+# Styling
+
+<div className={controlsContainer}>
+  <Story of={ButtonStories.Filled} />
+  <Source
+    of={ButtonStories.Filled}
+    transform={(code, { component, args }) =>
+      `<${component?.displayName} ${args.variant} ${args.color} ${args.type}>${args.children}</${component?.displayName}>`
+    }
+  />
+  <Controls of={ButtonStories.Filled} include={["variant", "color", "type"]} />
+</div>

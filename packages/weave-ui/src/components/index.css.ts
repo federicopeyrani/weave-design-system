@@ -1,1 +1,5 @@
-export { primaryButton } from "@/components/Button/Button.css";
+import { button } from "@/components/Button/Button.css";
+
+const comp = { ...button };
+
+export default comp;

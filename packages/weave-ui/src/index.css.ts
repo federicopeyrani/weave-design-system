@@ -1,4 +1,4 @@
-import { primaryButton } from "@/components/index.css";
-import { tokens } from "@/tokens/index.css";
+import comp from "@/components/index.css";
+import _tokens from "@/tokens";
 
-export const theme = { ...tokens, comp: { primaryButton } };
+export const tokens = { ..._tokens, comp };

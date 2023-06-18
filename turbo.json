@@ -4,8 +4,28 @@
     "lint": {},
     "lint:fix": {},
     "build": {},
+    "weave-ui#build": {
+      "inputs": [
+        "src/**",
+        "package.json",
+        "tsconfig.json",
+        "tsup.config.ts"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
     "storybook:build": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        ".storybook/**",
+        "stories/**"
+      ],
+      "outputs": [
+        "storybook-static/**"
+      ]
     }
   }
 }

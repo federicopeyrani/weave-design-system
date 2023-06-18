@@ -6,7 +6,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "lib": [
-      "ES2015"
+      "ES2015",
+      "DOM"
     ],
     "module": "ESNext",
     "target": "es6"
