@@ -40,20 +40,11 @@ export const buttonClassName = recipe({
       padding: `0 ${contract.container.padding}`,
       cursor: "pointer",
       outline: "none",
-      transition: `background ${contract.transition.duration} ease`,
+      boxShadow: `0 0 0 ${contract.focus.outline.width} ${outline.color}`,
+      transition: `background ${contract.transition.duration} ease, 
+        box-shadow ${contract.transition.duration} ease`,
       userSelect: "none",
       WebkitTapHighlightColor: "transparent",
-      "::before": {
-        content: "''",
-        position: "absolute",
-        top: "0",
-        left: "0",
-        width: "100%",
-        height: "100%",
-        boxShadow: `0 0 0 ${contract.focus.outline.width} ${outline.color}`,
-        ...applyShapeTokens(contract.container.shape),
-        transition: `box-shadow ${contract.transition.duration} ease`,
-      },
       ":disabled": {
         vars: {
           [container.opacityVar]: contract.disabled.container.opacity,
