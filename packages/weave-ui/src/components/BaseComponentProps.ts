@@ -1,7 +1,8 @@
+import type { ComponentProperties } from "@/components/Component/Component.css";
 import type { ClassNames } from "@/model/ClassNames";
-import { Styles } from "@/model/Styles";
+import type { Styles } from "@/model/Styles";
 
-export type BaseComponentProps = {
+export type BaseComponentProps = ComponentProperties & {
   className?: ClassNames;
   styles?: Styles;
 };

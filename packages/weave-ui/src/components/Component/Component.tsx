@@ -7,6 +7,7 @@ import {
 } from "react";
 
 import type { BaseComponentProps } from "@/components/BaseComponentProps";
+import { componentProperties } from "@/components/Component/Component.css";
 import asArray from "@/utils/asArray";
 
 type ComponentArguments<Type extends keyof ReactDOM> = {
@@ -31,11 +32,21 @@ export const Component = <Type extends keyof ReactDOM>({
   _styles,
   styles,
   style,
+
+  flexGrow,
+  flexShrink,
+
   ...props
-}: ComponentProps<Type>) =>
-  createElement(as, {
+}: ComponentProps<Type>) => {
+  const sprinklesClassName = componentProperties({ flexGrow, flexShrink });
+
+  return createElement(as, {
     ref: _ref,
-    className: cx(...asArray(_className), ...asArray(className)),
+    className: cx(
+      ...asArray(_className),
+      sprinklesClassName,
+      ...asArray(className)
+    ),
     style:
       _styles || styles
         ? {
@@ -48,5 +59,6 @@ export const Component = <Type extends keyof ReactDOM>({
         : style,
     ...props,
   });
+};
 
 export default Component;
