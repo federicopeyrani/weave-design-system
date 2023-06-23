@@ -1,5 +1,5 @@
 import { contract, values } from "@/components/Button/variants/base.css";
-import { schemas } from "@/tokens";
+import schemas from "@/styles/schemas";
 import createVariantOverride from "@/utils/createVariantOverride.css";
 
 export const [filled, filledButton] = createVariantOverride(contract, values, {

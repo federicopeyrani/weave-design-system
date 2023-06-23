@@ -1,15 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { tokens } from "weave-ui/src";
+import { Box } from "weave-ui/src/components";
 import {
   Column as ColumnComponent,
   Row as RowComponent,
 } from "weave-ui/src/components";
-import { BaseComponentProps } from "weave-ui/src/components/BaseComponentProps";
-import Component from "weave-ui/src/components/Component/Component";
-
-const Element: React.FC<BaseComponentProps> = (props) => (
-  <Component as="div" {...props} />
-);
 
 const palette = Object.entries(tokens.core.palette)
   .filter(([key]) => key.startsWith("primary"))
@@ -31,6 +26,9 @@ export default {
       control: "inline-radio",
       options: [true, false],
     },
+    spacing: {
+      control: "number",
+    },
   },
 } satisfies Meta<typeof RowComponent | typeof ColumnComponent>;
 
@@ -41,7 +39,7 @@ export const Row = {
     return (
       <RowComponent {...args}>
         {Array.from({ length: 3 }).map((_, i) => (
-          <Element
+          <Box
             key={i}
             styles={{
               minHeight: 48 * (i + 1),
@@ -60,7 +58,7 @@ export const Column = {
     return (
       <ColumnComponent {...args}>
         {Array.from({ length: 3 }).map((_, i) => (
-          <Element
+          <Box
             key={i}
             styles={{
               minHeight: 48,

@@ -1,12 +1,13 @@
 import { useRef } from "react";
 import { AriaButtonProps, useButton } from "react-aria";
 
-import type { BaseComponentProps } from "@/components/BaseComponentProps";
-import Component from "@/components/Component/Component";
+import BaseComponent, {
+  StyledComponentProps,
+} from "@/components/BaseComponent/BaseComponent";
 import TouchRipple from "@/components/TouchRipple/TouchRipple";
 import useTouchRipples from "@/hooks/useTouchRipples";
 import useTouchRippleTrigger from "@/hooks/useTouchRippleTrigger";
-import { schemas } from "@/tokens";
+import schemas from "@/styles/schemas";
 import getVariant from "@/utils/getVariant";
 import pick from "@/utils/pick";
 import type { RecipeVariantsNames, VariantSelector } from "@/utils/Types";
@@ -25,7 +26,7 @@ type ButtonTypeSelector = VariantSelector<
   RecipeVariantsNames<typeof buttonClassName, "type">
 >;
 
-export type ButtonProps = BaseComponentProps &
+export type ButtonProps = StyledComponentProps &
   AriaButtonProps<"button"> &
   ButtonVariantsSelector &
   ButtonColorSelector &
@@ -51,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
   const className = buttonClassName({ variant, color, type });
 
   return (
-    <Component
+    <BaseComponent
       as="button"
       _ref={ref}
       _className={className}
@@ -63,7 +64,7 @@ const Button: React.FC<ButtonProps> = ({
         <TouchRipple key={key} className={touchRippleClassName} {...ripple} />
       ))}
       {children}
-    </Component>
+    </BaseComponent>
   );
 };
 

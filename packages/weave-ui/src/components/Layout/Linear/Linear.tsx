@@ -1,12 +1,19 @@
-import Component from "@/components/Component/Component";
+import BaseComponent from "@/components/BaseComponent/BaseComponent";
 import { LayoutProps } from "@/components/Layout/LayoutProps";
 import {
+  LinearClassName,
   linearClassName,
-  LinearProperties,
-  linearProperties,
 } from "@/components/Layout/Linear/Linear.css";
+import schemas, { DimensionValues } from "@/styles/schemas";
+import { StyledFlex, styledFlexClassName } from "@/styles/styled";
 
-export type LinearPropsInternal = LayoutProps & LinearProperties;
+export type LinearPropsInternal = LayoutProps &
+  LinearClassName &
+  StyledFlex & {
+    spacing?: DimensionValues;
+  };
+
+export type LinearProps = Omit<LinearPropsInternal, "direction">;
 
 const Linear: React.FC<LinearPropsInternal> = ({
   children,
@@ -14,23 +21,33 @@ const Linear: React.FC<LinearPropsInternal> = ({
   align,
   justify,
   wrap,
+  spacing,
   ...props
 }) => {
-  const propertiesClassName = linearProperties({
+  const className = linearClassName({
+    direction: typeof direction === "string" ? direction : undefined,
+    align: typeof align === "string" ? align : undefined,
+    justify: typeof justify === "string" ? justify : undefined,
+    wrap: typeof wrap === "string" ? wrap : undefined,
+  });
+
+  const flexClassName = styledFlexClassName({
     direction,
     align,
     justify,
     wrap,
   });
 
+  const dimensionClassName = schemas.properties.dimension(spacing);
+
   return (
-    <Component
+    <BaseComponent
       as="div"
-      _className={[linearClassName, propertiesClassName]}
+      _className={[className, flexClassName, dimensionClassName]}
       {...props}
     >
       {children}
-    </Component>
+    </BaseComponent>
   );
 };
 

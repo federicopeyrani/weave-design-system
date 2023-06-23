@@ -1,10 +1,11 @@
-import mapValues from "@/tokens/mapValues";
+import { mapValues } from "lodash";
+
 import { ObjectKeys } from "@/utils/Types";
 
 const breakpointValues = {
   compact: 0,
   medium: 600,
-  expanded: 640,
+  expanded: 840,
 };
 
 type BreakpointValues = typeof breakpointValues;

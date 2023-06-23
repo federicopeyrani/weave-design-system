@@ -1,8 +1,6 @@
-import { LayoutProps } from "@/components/Layout/LayoutProps";
-import Linear from "@/components/Layout/Linear/Linear";
-import { LinearProps } from "@/components/Layout/Linear/LinearProps";
+import Linear, { LinearProps } from "@/components/Layout/Linear/Linear";
 
-export type ColumnProps = LayoutProps & LinearProps;
+export type ColumnProps = LinearProps;
 
 const Column: React.FC<ColumnProps> = ({ children, ...props }) => (
   <Linear direction="column" {...props}>

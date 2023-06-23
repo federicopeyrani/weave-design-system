@@ -1,41 +1,38 @@
-import { style } from "@vanilla-extract/css";
-import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
+import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 
-import breakpoints from "@/styles/conditions/breakpoints.css";
-import { SprinkleProps } from "@/utils/Types";
+import schemas from "@/styles/schemas";
 
-export const properties = defineProperties({
-  ...breakpoints,
-  properties: {
-    direction: {
-      row: { flexDirection: "row" },
-      column: { flexDirection: "column" },
-    },
-    align: {
-      start: { alignItems: "flex-start" },
-      center: { alignItems: "center" },
-      end: { alignItems: "flex-end" },
-      stretch: { alignItems: "stretch" },
-    },
-    justify: {
-      start: { justifyContent: "flex-start" },
-      center: { justifyContent: "center" },
-      end: { justifyContent: "flex-end" },
-      between: { justifyContent: "space-between" },
-      around: { justifyContent: "space-around" },
-      evenly: { justifyContent: "space-evenly" },
-    },
-    wrap: {
-      true: { flexWrap: "wrap" },
-      false: { flexWrap: "nowrap" },
-    },
+export const variants = {
+  direction: {
+    row: { flexDirection: "row" },
+    column: { flexDirection: "column" },
   },
+  align: {
+    start: { alignItems: "flex-start" },
+    center: { alignItems: "center" },
+    end: { alignItems: "flex-end" },
+    stretch: { alignItems: "stretch" },
+  },
+  justify: {
+    start: { justifyContent: "flex-start" },
+    center: { justifyContent: "center" },
+    end: { justifyContent: "flex-end" },
+    between: { justifyContent: "space-between" },
+    around: { justifyContent: "space-around" },
+    evenly: { justifyContent: "space-evenly" },
+  },
+  wrap: {
+    true: { flexWrap: "wrap" },
+    false: { flexWrap: "nowrap" },
+  },
+} as const;
+
+export const linearClassName = recipe({
+  base: {
+    display: "flex",
+    gap: schemas.tokens.dimension,
+  },
+  variants,
 });
 
-export const linearClassName = style({
-  display: "flex",
-});
-
-export const linearProperties = createSprinkles(properties);
-
-export type LinearProperties = SprinkleProps<typeof linearProperties>;
+export type LinearClassName = RecipeVariants<typeof linearClassName>;

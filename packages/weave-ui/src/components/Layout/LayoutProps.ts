@@ -1,5 +1,5 @@
 import { ComponentProps } from "react";
 
-import { BaseComponentProps } from "@/components/BaseComponentProps";
+import { StyledComponentProps } from "@/components/BaseComponent/BaseComponent";
 
-export type LayoutProps = BaseComponentProps & ComponentProps<"div">;
+export type LayoutProps = StyledComponentProps & ComponentProps<"div">;

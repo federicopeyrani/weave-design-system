@@ -1,11 +1,12 @@
-import { BaseComponentProps } from "@/components/BaseComponentProps";
-import Component from "@/components/Component/Component";
+import { cx } from "classix";
+import { ComponentProps } from "react";
+
 import {
   floodColor,
   grainyFilterClassName,
 } from "@/components/GrainyFilter/GrainyFilter.css";
 
-export type GrainyFilterProps = BaseComponentProps & {
+export type GrainyFilterProps = ComponentProps<"svg"> & {
   size?: number;
   width?: number;
   height?: number;
@@ -19,6 +20,7 @@ export type GrainyFilterProps = BaseComponentProps & {
 };
 
 const GrainyFilter: React.FC<GrainyFilterProps> = ({
+  className,
   baseFrequency = "0.65",
   numOctaves = "3",
   amount = "20",
@@ -39,9 +41,8 @@ const GrainyFilter: React.FC<GrainyFilterProps> = ({
   const viewBox = `0 0 ${resolvedViewBoxWidth} ${resolvedViewBoxHeight}`;
 
   return (
-    <Component
-      as="svg"
-      _className={grainyFilterClassName}
+    <svg
+      className={cx(grainyFilterClassName, className)}
       width={resolvedWidth}
       height={resolvedHeight}
       viewBox={viewBox}
@@ -73,7 +74,7 @@ const GrainyFilter: React.FC<GrainyFilterProps> = ({
       </filter>
 
       <rect width="100%" height="100%" filter="url(#crispy-filter)" />
-    </Component>
+    </svg>
   );
 };
 

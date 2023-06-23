@@ -2,6 +2,7 @@ export {
   default as Button,
   type ButtonProps,
 } from "@/components/Button/Button";
+export { default as Box, type BoxProps } from "@/components/Layout/Box/Box";
 export {
   default as Column,
   type ColumnProps,
