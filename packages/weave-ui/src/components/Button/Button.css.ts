@@ -6,7 +6,7 @@ import { filled, filledButton } from "@/components/Button/variants/filled.css";
 import { text, textButton } from "@/components/Button/variants/text.css";
 import { tonal, tonalButton } from "@/components/Button/variants/tonal.css";
 import { touchRipple } from "@/components/TouchRipple/TouchRipple.css";
-import { schemas } from "@/tokens";
+import schemas from "@/styles/schemas";
 import applyShapeTokens from "@/utils/applyShapeTokens";
 import applyTypeTokens from "@/utils/applyTypeTokens";
 import color from "@/utils/color";

@@ -1,10 +1,11 @@
 import { vanillaExtractPlugin } from "@vanilla-extract/esbuild-plugin";
 import autoprefixer from "autoprefixer";
+import cssnanoPlugin from "cssnano";
 import postcss from "postcss";
 import { defineConfig } from "tsup";
 
 const processCss = async (css: string) => {
-  const result = await postcss([autoprefixer]).process(css, {
+  const result = await postcss([autoprefixer, cssnanoPlugin]).process(css, {
     from: undefined,
   });
   return result.css;

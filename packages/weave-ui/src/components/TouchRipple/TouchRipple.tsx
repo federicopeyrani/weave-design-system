@@ -1,7 +1,8 @@
 import React from "react";
 
-import { BaseComponentProps } from "@/components/BaseComponentProps";
-import Component from "@/components/Component/Component";
+import BaseComponent, {
+  StyledComponentProps,
+} from "@/components/BaseComponent/BaseComponent";
 import GrainyFilter, {
   GrainyFilterProps,
 } from "@/components/GrainyFilter/GrainyFilter";
@@ -17,7 +18,7 @@ export type TouchRipplePosition = {
   y: string;
 };
 
-export type TouchRippleProps = BaseComponentProps &
+export type TouchRippleProps = StyledComponentProps &
   Partial<TouchRipplePosition> & {
     size?: number;
     disableAnimate?: boolean;
@@ -35,7 +36,7 @@ const TouchRipple: React.FC<TouchRippleProps> = ({
   } = {},
   ...props
 }) => (
-  <Component
+  <BaseComponent
     as="div"
     _className={touchRippleClassName}
     _styles={{
@@ -55,7 +56,7 @@ const TouchRipple: React.FC<TouchRippleProps> = ({
         {...grainyFilterProps}
       />
     </div>
-  </Component>
+  </BaseComponent>
 );
 
 export default TouchRipple;

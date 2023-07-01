@@ -1,4 +1,5 @@
-import tokens, { schemas } from "@/tokens";
+import schemas from "@/styles/schemas";
+import tokens from "@/tokens";
 import createTokens from "@/utils/createTokens";
 
 export const [contract, values] = createTokens({

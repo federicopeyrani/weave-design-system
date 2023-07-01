@@ -21,6 +21,9 @@ export type VariantSelector<Variants extends string> = {
   };
 }[Variants];
 
+// T: typeof buttonClassName
+// Key: "variants"
+// Output: "filled" | "tonal" | "text"
 export type RecipeVariantsNames<
   T extends ReturnType<typeof recipe>,
   Key extends keyof Require<RecipeVariants<T>>
@@ -33,3 +36,18 @@ export type DeepPartial<T> = T extends object
 export type MapLeaves<T, V> = T extends object
   ? { [P in keyof T]: MapLeaves<T[P], V> }
   : V;
+
+export type ObjectKeys<T> = readonly (keyof T)[];
+
+export type ObjectEntries<T> = readonly {
+  [K in keyof T]: readonly [K, T[K]];
+}[keyof T][];
+
+export type ObjectFromEntries<T> = T extends readonly (readonly [
+  infer K extends string | number | symbol,
+  infer V
+])[]
+  ? { [key in K]: V }
+  : never;
+
+export type SprinkleProps<T extends (args: never) => string> = Parameters<T>[0];
