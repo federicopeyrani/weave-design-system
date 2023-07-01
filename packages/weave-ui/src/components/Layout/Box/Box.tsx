@@ -1,33 +1,27 @@
-import { ComponentProps, forwardRef, ReactDOM } from "react";
+import { forwardRef, ReactDOM, ReactElement } from "react";
 
 import BaseComponent, {
   StyledComponentProps,
 } from "@/components/BaseComponent/BaseComponent";
 
-type TypedBoxProps<Type extends keyof ReactDOM> = {
-  as: Type;
-} & ComponentProps<Type>;
+export type BoxProps<
+  Type extends keyof ReactDOM = "div",
+  Props = JSX.IntrinsicElements[Type]
+> = StyledComponentProps &
+  Props &
+  (Type extends "div" ? { as?: Type } : { as: Type });
 
-type FallbackBoxProps = {
-  as?: undefined;
-} & ComponentProps<"div">;
-
-export type BoxProps<Type extends keyof ReactDOM> = StyledComponentProps &
-  (TypedBoxProps<Type> | FallbackBoxProps);
-
-type BoxType = <Type extends keyof ReactDOM>(
-  props: ComponentProps<Type>
-) => JSX.Element;
-
-const Box = <Type extends keyof ReactDOM>(
-  props: BoxProps<Type>,
-  ref: ComponentProps<Type>["ref"]
-) => {
+const Box = forwardRef<HTMLDivElement, BoxProps>(function BoxRender(
+  props,
+  ref
+) {
   const { as = "div", ...rest } = props;
+  return <BaseComponent as={as} ref={ref} {...rest} />;
+}) as <
+  Type extends keyof ReactDOM = "div",
+  Props = JSX.IntrinsicElements[Type]
+>(
+  props: BoxProps<Type, Props>
+) => ReactElement;
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return <BaseComponent as={as} _ref={ref} {...rest} />;
-};
-
-export default forwardRef(Box) as React.FC & BoxType;
+export default Box;

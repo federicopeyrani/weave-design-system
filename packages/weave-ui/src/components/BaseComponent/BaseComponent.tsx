@@ -1,7 +1,7 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx } from "classix";
 import { omit, pick } from "lodash";
-import { ComponentProps, createElement, ReactDOM } from "react";
+import { createElement, forwardRef, HTMLAttributes, ReactDOM } from "react";
 
 import { ClassNames } from "@/model/ClassNames";
 import { Styles } from "@/model/Styles";
@@ -11,23 +11,31 @@ import styledComponentClassName, {
 } from "@/styles/styled/component.css";
 import asArray from "@/utils/asArray";
 
-type ComponentArguments<Type extends keyof ReactDOM> = {
+interface ComponentArguments<Type extends keyof ReactDOM> {
   as: Type;
-  _ref?: ComponentProps<Type>["ref"];
   _className?: BaseComponentProps["className"];
   _styles?: BaseComponentProps["styles"];
-};
+}
 
-export type BaseComponentProps = {
+export interface BaseComponentProps {
   className?: ClassNames;
   styles?: Styles;
-};
+}
 
-export type StyledComponentProps = BaseComponentProps & StyledComponent;
+export interface StyledComponentProps
+  extends BaseComponentProps,
+    StyledComponent {}
+
+export type ComponentAttributes<T> = Omit<HTMLAttributes<T>, "className">;
+
+type RestrictedComponentProps<Type extends keyof ReactDOM> = Omit<
+  JSX.IntrinsicElements[Type],
+  keyof BaseComponentProps
+>;
 
 export type BaseComponentPropsInternal<Type extends keyof ReactDOM> =
   StyledComponentProps &
-    Omit<ComponentProps<Type>, "ref" | "className"> &
+    RestrictedComponentProps<Type> &
     ComponentArguments<Type>;
 
 export type BaseComponentType = <Type extends keyof ReactDOM>(
@@ -43,21 +51,23 @@ const splitStyledComponentProps = <T extends Record<string, unknown>>(
   return [styledProps, otherProps] as const;
 };
 
-const BaseComponent: BaseComponentType = ({
-  as,
-  _ref,
-  _className,
-  className,
-  _styles,
-  styles,
-  style,
-  ...props
-}) => {
+const BaseComponent = forwardRef(function BaseComponentRender(
+  {
+    as,
+    _className,
+    className,
+    _styles,
+    styles,
+    style,
+    ...props
+  }: BaseComponentPropsInternal<keyof ReactDOM>,
+  ref
+) {
   const [styledProps, otherProps] = splitStyledComponentProps(props);
   const sprinklesClassName = styledComponentClassName(styledProps);
 
   return createElement(as, {
-    ref: _ref,
+    ref,
     className: cx(
       ...asArray(_className),
       sprinklesClassName,
@@ -75,6 +85,6 @@ const BaseComponent: BaseComponentType = ({
         : style,
     ...otherProps,
   });
-};
+}) as BaseComponentType;
 
 export default BaseComponent;

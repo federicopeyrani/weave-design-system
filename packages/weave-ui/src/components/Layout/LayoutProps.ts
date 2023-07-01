@@ -1,5 +1,8 @@
-import { ComponentProps } from "react";
+import {
+  ComponentAttributes,
+  StyledComponentProps,
+} from "@/components/BaseComponent/BaseComponent";
 
-import { StyledComponentProps } from "@/components/BaseComponent/BaseComponent";
-
-export type LayoutProps = StyledComponentProps & ComponentProps<"div">;
+export interface LayoutProps
+  extends StyledComponentProps,
+    ComponentAttributes<HTMLDivElement> {}

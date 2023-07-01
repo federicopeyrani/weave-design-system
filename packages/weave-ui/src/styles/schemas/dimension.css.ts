@@ -1,29 +1,22 @@
 import { createVar } from "@vanilla-extract/css";
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
-import { chain, mapValues } from "lodash";
+import { mapValues } from "lodash";
 
 import breakpoints from "@/styles/conditions/breakpoints.css";
-import { GridSize } from "@/tokens";
 import { core } from "@/tokens/core/index.css";
-import { SprinkleProps, ValuesOf } from "@/utils/Types";
-
-type CoreGrid = typeof core.grid;
+import { SprinkleProps } from "@/utils/Types";
 
 export const dimension = createVar();
 
-export const dimensionOptions = chain(core.grid)
-  .pickBy((value, key) => key.startsWith("regular"))
-  .mapKeys((value, key) => +key.replace("regular", ""))
-  .value() as {
-  [key in GridSize]: ValuesOf<CoreGrid>;
-};
+export const dimensionOptions = {
+  0: "0",
+  1: core.grid.regular1,
+  2: core.grid.regular2,
+} as const;
 
-const dimensionValues = mapValues(
-  { ...dimensionOptions, unset: "unset" },
-  (value) => ({
-    vars: { [dimension]: value },
-  })
-);
+const dimensionValues = mapValues(dimensionOptions, (value) => ({
+  vars: { [dimension]: value },
+}));
 
 const properties = defineProperties({
   ...breakpoints,

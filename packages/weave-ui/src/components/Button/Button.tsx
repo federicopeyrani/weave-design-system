@@ -54,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <BaseComponent
       as="button"
-      _ref={ref}
+      ref={ref}
       _className={className}
       {...props}
       {...buttonProps}
