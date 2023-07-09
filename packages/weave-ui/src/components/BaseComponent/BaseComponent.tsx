@@ -1,6 +1,5 @@
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { cx } from "classix";
-import { omit, pick } from "lodash";
 import { createElement, forwardRef, HTMLAttributes, ReactDOM } from "react";
 
 import { ClassNames } from "@/model/ClassNames";
@@ -10,6 +9,7 @@ import styledComponentClassName, {
   styledComponentProps,
 } from "@/styles/styled/component.css";
 import asArray from "@/utils/asArray";
+import splitProps from "@/utils/splitProps";
 
 interface ComponentArguments<Type extends keyof ReactDOM> {
   as: Type;
@@ -38,18 +38,11 @@ export type BaseComponentPropsInternal<Type extends keyof ReactDOM> =
     RestrictedComponentProps<Type> &
     ComponentArguments<Type>;
 
-export type BaseComponentType = <Type extends keyof ReactDOM>(
-  props: BaseComponentPropsInternal<Type>
-) => JSX.Element;
-
-const splitStyledComponentProps = <T extends Record<string, unknown>>(
-  props: T
-) => {
-  const styledProps = pick(props, styledComponentProps);
-  const otherProps = omit(props, styledComponentProps);
-
-  return [styledProps, otherProps] as const;
-};
+interface BaseComponent extends React.FC<BaseComponentPropsInternal<never>> {
+  <Type extends keyof ReactDOM>(
+    props: BaseComponentPropsInternal<Type>
+  ): JSX.Element;
+}
 
 const BaseComponent = forwardRef(function BaseComponentRender(
   {
@@ -63,7 +56,7 @@ const BaseComponent = forwardRef(function BaseComponentRender(
   }: BaseComponentPropsInternal<keyof ReactDOM>,
   ref
 ) {
-  const [styledProps, otherProps] = splitStyledComponentProps(props);
+  const [styledProps, otherProps] = splitProps(props, styledComponentProps);
   const sprinklesClassName = styledComponentClassName(styledProps);
 
   return createElement(as, {
@@ -85,6 +78,6 @@ const BaseComponent = forwardRef(function BaseComponentRender(
         : style,
     ...otherProps,
   });
-}) as BaseComponentType;
+}) as BaseComponent;
 
 export default BaseComponent;
