@@ -7,7 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "storybook:build": "turbo storybook:build"
+    "build": "turbo build",
+    "storybook:build": "turbo storybook:build",
+    "publish:nightly": "turbo publish:nightly"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.59.1",

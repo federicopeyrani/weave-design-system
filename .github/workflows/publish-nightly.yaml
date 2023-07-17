@@ -1,0 +1,31 @@
+name: Publish Nightly
+on:
+  push:
+    branches:
+      - develop
+      - feature/ci-cd
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          scope: '@weave-ds'
+      - run: yarn
+      - run: yarn build
+  publish-nightly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          scope: '@weave-ds'
+      - run: yarn
+      - run: yarn build
+      - run: yarn publish:nightly
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PUBLISH_VERSION_SUFFIX: ${{ github.sha }}

@@ -26,6 +26,14 @@
       "outputs": [
         "storybook-static/**"
       ]
+    },
+    "publish:nightly": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "dist/**"
+      ]
     }
   }
 }
