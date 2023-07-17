@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { tokens } from "weave-ui/src";
 import { Button } from "weave-ui/src/components";
+import schemas from "weave-ui/src/styles/schemas";
 
 export default {
   title: "Components/Actions/Button",
@@ -12,12 +13,12 @@ export default {
       control: "inline-radio",
     },
     color: {
-      options: ["primary", "secondary", "error"],
       control: "inline-radio",
+      options: Object.keys(schemas.variants.color),
     },
     type: {
       control: "select",
-      options: ["labelSmall", "labelMedium", "labelLarge"],
+      options: Object.keys(schemas.variants.type),
     },
     isDisabled: { type: "boolean" },
     // actions
@@ -41,7 +42,7 @@ const defaultArgs: Story["args"] = {
   children: "Button",
   variant: undefined,
   color: undefined,
-  type: "labelMedium",
+  type: "labelLarge",
   isDisabled: false,
 };
 

@@ -77,7 +77,7 @@ export const buttonClassName = recipe({
   defaultVariants: {
     variant: "filled",
     color: "primary",
-    type: "labelMedium",
+    type: "labelLarge",
   },
 });
 

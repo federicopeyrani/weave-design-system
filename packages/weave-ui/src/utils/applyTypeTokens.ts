@@ -5,9 +5,10 @@ import type { ValuesOf } from "@/utils/Types";
 
 export type TypeTokens = ValuesOf<typeof tokens.ref.type>;
 
-const applyTypeTokens = ({ size, weight }: TypeTokens): StyleRule => ({
+const applyTypeTokens = ({ size, weight, font }: TypeTokens): StyleRule => ({
   fontSize: size,
   fontWeight: weight,
+  fontFamily: font,
 });
 
 export default applyTypeTokens;

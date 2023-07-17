@@ -12,15 +12,14 @@ export const [core, coreValues] = createTokens({
     ...tonalPalette("error", "#c72907"),
   },
   type: {
-    weightNormal: "400",
+    weightRegular: "400",
     weightMedium: "500",
-    ...typescale("scale", 16, 1.125),
+    fontPlain: "Inter, sans-serif",
+    fontBrand: "Inter, sans-serif",
+    ...typescale("scale", 1, 1.125, "rem"),
   },
   grid: {
     ...scale("small", 4),
     ...scale("regular", 8),
-  },
-  opacity: {
-    def: "12",
   },
 });

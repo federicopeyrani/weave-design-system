@@ -1,15 +1,15 @@
-import { forwardRef, ReactDOM, ReactElement } from "react";
+import { forwardRef, ReactDOM } from "react";
 
-import BaseComponent, {
-  StyledComponentProps,
-} from "@/components/BaseComponent/BaseComponent";
+import BaseComponent from "@/components/BaseComponent/BaseComponent";
+import {
+  OverridableComponent,
+  OverridableComponentProps,
+} from "@/model/OverridableComponent";
 
-export type BoxProps<
-  Type extends keyof ReactDOM = "div",
-  Props = JSX.IntrinsicElements[Type]
-> = StyledComponentProps &
-  Props &
-  (Type extends "div" ? { as?: Type } : { as: Type });
+export type BoxProps<Type extends keyof ReactDOM = "div"> =
+  OverridableComponentProps<"div", Type>;
+
+type Box = OverridableComponent<"div">;
 
 const Box = forwardRef<HTMLDivElement, BoxProps>(function BoxRender(
   props,
@@ -17,11 +17,6 @@ const Box = forwardRef<HTMLDivElement, BoxProps>(function BoxRender(
 ) {
   const { as = "div", ...rest } = props;
   return <BaseComponent as={as} ref={ref} {...rest} />;
-}) as <
-  Type extends keyof ReactDOM = "div",
-  Props = JSX.IntrinsicElements[Type]
->(
-  props: BoxProps<Type, Props>
-) => ReactElement;
+}) as Box;
 
 export default Box;
