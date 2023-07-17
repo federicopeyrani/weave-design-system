@@ -14,7 +14,7 @@ jobs:
           node-version: 18
           cache: 'yarn'
           scope: '@weave-ds'
-      - run: yarn install --frozen-lockfile --no-progress
+      - run: yarn install --frozen-lockfile --prefer-offline --no-progress
       - run: yarn build
   publish-nightly:
     needs: build
@@ -26,8 +26,8 @@ jobs:
           node-version: 18
           cache: 'yarn'
           scope: '@weave-ds'
-      - run: yarn install --frozen-lockfile --no-progress
-      - run: yarn publish-nightly
+      - run: yarn install --frozen-lockfile --prefer-offline --no-progress
+      - run: yarn publish:nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUBLISH_VERSION_SUFFIX: ${{ github.sha }}
