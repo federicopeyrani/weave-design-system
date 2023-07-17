@@ -27,7 +27,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@weave-ds'
       - run: yarn install --frozen-lockfile --prefer-offline --no-progress
-      - run: yarn publish:nightly
+      - run: yarn publish:nightly -- --access public --no-git-tag-version --tag nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUBLISH_VERSION_SUFFIX: ${{ github.sha }}
