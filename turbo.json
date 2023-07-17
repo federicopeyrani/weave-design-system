@@ -29,7 +29,7 @@
     },
     "publish:nightly": {
       "dependsOn": [
-        "^build"
+        "build"
       ],
       "inputs": [
         "dist/**"
