@@ -14,13 +14,20 @@ jobs:
           node-version: 18
           cache: 'yarn'
           scope: '@weave-ds'
-      - run: yarn
+      - run: yarn install --frozen-lockfile --no-progress
       - run: yarn build
   publish-nightly:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: yarn publish:nightly
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+          scope: '@weave-ds'
+      - run: yarn install --frozen-lockfile --no-progress
+      - run: yarn publish-nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           PUBLISH_VERSION_SUFFIX: ${{ github.sha }}
