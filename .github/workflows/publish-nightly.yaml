@@ -13,10 +13,9 @@ jobs:
         with:
           node-version: 18
           cache: 'yarn'
-          scope: '@weave-ds'
       - run: yarn install --frozen-lockfile --prefer-offline --no-progress
       - run: yarn build
-  publish-nightly:
+  publish:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -25,6 +24,7 @@ jobs:
         with:
           node-version: 18
           cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
           scope: '@weave-ds'
       - run: yarn install --frozen-lockfile --prefer-offline --no-progress
       - run: yarn publish:nightly
