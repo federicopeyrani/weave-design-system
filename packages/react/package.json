@@ -1,5 +1,5 @@
 {
-  "name": "weave-ui",
+  "name": "@weave-ds/react",
   "version": "0.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

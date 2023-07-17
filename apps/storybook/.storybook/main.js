@@ -21,11 +21,11 @@ const config = {
       ...baseConfig.resolve,
       alias: {
         ...baseConfig.resolve.alias,
-        "weave-ui/src": path.resolve(
+        "@weave-ds/react/src": path.resolve(
           __dirname,
-          "../../../packages/weave-ui/src"
+          "../../../packages/react/src"
         ),
-        "@": path.resolve(__dirname, "../../../packages/weave-ui/src"),
+        "@": path.resolve(__dirname, "../../../packages/react/src"),
       },
     },
     plugins: [...baseConfig.plugins, new VanillaExtractPlugin()],

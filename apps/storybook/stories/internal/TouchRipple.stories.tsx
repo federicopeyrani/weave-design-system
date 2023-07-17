@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { tokens } from "weave-ui/src";
-import TouchRipple from "weave-ui/src/components/TouchRipple/TouchRipple";
+import { tokens } from "@weave-ds/react/src";
+import TouchRipple from "@weave-ds/react/src/components/TouchRipple/TouchRipple";
 
 export default {
   title: "Internal/TouchRipple",
