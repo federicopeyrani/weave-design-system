@@ -27,9 +27,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: '@weave-ds'
       - run: yarn install --frozen-lockfile --prefer-offline --no-progress
-      - id: run
-        run: echo "sha_short=$(echo ${{ github.sha }} | cut -d- -f2)" >> $GITHUB_OUTPUT
+      - id: short_sha
+        run: echo "sha_short=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
       - run: yarn publish:nightly -- -- --access public --no-git-tag-version --tag nightly
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          PUBLISH_VERSION_SUFFIX: ${{ steps.run.outputs.sha_short }}
+          PUBLISH_VERSION_SUFFIX: ${{ steps.short_sha.outputs.sha_short }}
