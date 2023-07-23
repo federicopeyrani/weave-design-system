@@ -8,7 +8,7 @@ import {
   appLightValues,
   appTheme,
 } from "@/tokens/app/index.css";
-import { core, coreValues } from "@/tokens/core/index.css";
+import { ref, refValues } from "@/tokens/ref/index.css";
 
 export const stylesLayer = layer();
 
@@ -16,7 +16,7 @@ export const styles = recipe({
   base: [
     {
       "@layer": {
-        [stylesLayer]: { vars: assignVars(core, coreValues) },
+        [stylesLayer]: { vars: assignVars(ref, refValues) },
       },
     },
     {

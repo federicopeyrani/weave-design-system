@@ -1,10 +1,10 @@
-import { scale } from "@/tokens/core/dimension";
-import { typescale } from "@/tokens/core/typescale";
+import { scale } from "@/tokens/ref/dimension";
+import { typescale } from "@/tokens/ref/typescale";
 import createTokens from "@/utils/createTokens";
 
 import { tonalPalette } from "./color";
 
-export const [core, coreValues] = createTokens({
+export const [ref, refValues] = createTokens({
   palette: {
     ...tonalPalette("primary", "#7171ab"),
     ...tonalPalette("secondary", "#908ea5"),

@@ -1,23 +1,23 @@
-import { core } from "@/tokens/core/index.css";
+import { ref } from "@/tokens/ref/index.css";
 import createTokens from "@/utils/createTokens";
 
 import { appTheme } from "./light.css";
 
 export const appDarkValues = createTokens(appTheme, {
   color: {
-    primary: core.palette.primary40,
-    onPrimary: core.palette.primary100,
-    primaryContainer: core.palette.primary80,
-    onPrimaryContainer: core.palette.primary40,
-    secondary: core.palette.secondary40,
-    onSecondary: core.palette.secondary100,
-    secondaryContainer: core.palette.secondary80,
-    onSecondaryContainer: core.palette.secondary40,
-    error: core.palette.error40,
-    onError: core.palette.error100,
-    errorContainer: core.palette.error80,
-    onErrorContainer: core.palette.error40,
-    background: core.palette.neutral90,
-    onBackground: core.palette.neutral10,
+    primary: ref.palette.primary40,
+    onPrimary: ref.palette.primary100,
+    primaryContainer: ref.palette.primary80,
+    onPrimaryContainer: ref.palette.primary40,
+    secondary: ref.palette.secondary40,
+    onSecondary: ref.palette.secondary100,
+    secondaryContainer: ref.palette.secondary80,
+    onSecondaryContainer: ref.palette.secondary40,
+    error: ref.palette.error40,
+    onError: ref.palette.error100,
+    errorContainer: ref.palette.error80,
+    onErrorContainer: ref.palette.error40,
+    background: ref.palette.neutral90,
+    onBackground: ref.palette.neutral10,
   },
 });

@@ -12,11 +12,11 @@ const [contract, theme] = createTokensTheme({
   x: "0px",
   y: "0px",
   background: {
-    color: tokens.core.palette.neutral95,
+    color: tokens.ref.palette.neutral95,
     opacity: "0.4",
   },
   noise: {
-    color: tokens.core.palette.neutral10,
+    color: tokens.ref.palette.neutral10,
     opacity: "0.2",
   },
 });
