@@ -1,0 +1,24 @@
+name: Publish Nightly
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@weave-ds'
+      - run: yarn install --frozen-lockfile --prefer-offline --no-progress
+      - id: short_sha
+        run: echo "sha_short=$(echo ${{ github.sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+      - run: yarn publish:nightly -- -- --access public --no-git-tag-version --tag nightly
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PUBLISH_VERSION_SUFFIX: ${{ steps.short_sha.outputs.sha_short }}

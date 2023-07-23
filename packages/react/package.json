@@ -1,5 +1,5 @@
 {
-  "name": "weave-ui",
+  "name": "@weave-ds/react",
   "version": "0.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -18,7 +18,8 @@
   "scripts": {
     "build": "tsup",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
-    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix"
+    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
+    "publish:nightly": "yarn publish --new-version ${npm_package_version}-nightly.${PUBLISH_VERSION_SUFFIX}"
   },
   "dependencies": {
     "@material/material-color-utilities": "^0.2.6",
@@ -44,5 +45,8 @@
     "tsconfig": "*",
     "tsup": "^6.7.0",
     "typescript": "5.0.4"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

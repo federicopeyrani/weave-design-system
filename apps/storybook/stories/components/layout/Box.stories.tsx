@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { mapValues } from "lodash";
-import { tokens } from "weave-ui/src";
-import { Box } from "weave-ui/src/components";
+import { tokens } from "@weave-ds/react/src";
+import { Box } from "@weave-ds/react/src/components";
 import {
   responsiveProperties,
   staticProperties,
-} from "weave-ui/src/styles/styled/component.css";
+} from "@weave-ds/react/src/styles/styled/component.css";
+import { mapValues } from "lodash";
 
 export default {
   title: "Components/Layout/Box",

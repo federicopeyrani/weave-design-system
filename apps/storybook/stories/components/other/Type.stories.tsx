@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Type } from "weave-ui/src/components";
-import schemas from "weave-ui/src/styles/schemas";
+import { Type } from "@weave-ds/react/src/components";
+import schemas from "@weave-ds/react/src/styles/schemas";
 
 export default {
   title: "Components/Other/Type",

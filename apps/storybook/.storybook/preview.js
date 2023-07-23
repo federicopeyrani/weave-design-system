@@ -1,6 +1,6 @@
 import { withThemeByClassName } from "@storybook/addon-styling";
 
-import { styles } from "weave-ui/src";
+import { styles } from "@weave-ds/react/src";
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { tokens } from "weave-ui/src";
-import { Box } from "weave-ui/src/components";
+import { tokens } from "@weave-ds/react/src";
 import {
+  Box,
   Column as ColumnComponent,
   Row as RowComponent,
-} from "weave-ui/src/components";
+} from "@weave-ds/react/src/components";
 
 const palette = Object.entries(tokens.core.palette)
   .filter(([key]) => key.startsWith("primary"))

@@ -4,7 +4,7 @@
     "lint": {},
     "lint:fix": {},
     "build": {},
-    "weave-ui#build": {
+    "react#build": {
       "inputs": [
         "src/**",
         "package.json",
@@ -25,6 +25,14 @@
       ],
       "outputs": [
         "storybook-static/**"
+      ]
+    },
+    "publish:nightly": {
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "dist/**"
       ]
     }
   }

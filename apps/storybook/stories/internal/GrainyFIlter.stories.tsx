@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import GrainyFilter from "weave-ui/src/components/GrainyFilter/GrainyFilter";
+import GrainyFilter from "@weave-ds/react/src/components/GrainyFilter/GrainyFilter";
 
 export default {
   title: "Internal/GrainyFilter",

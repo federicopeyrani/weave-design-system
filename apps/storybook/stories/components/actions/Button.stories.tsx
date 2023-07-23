@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { tokens } from "weave-ui/src";
-import { Button } from "weave-ui/src/components";
-import schemas from "weave-ui/src/styles/schemas";
+import { tokens } from "@weave-ds/react/src";
+import { Button } from "@weave-ds/react/src/components";
+import schemas from "@weave-ds/react/src/styles/schemas";
 
 export default {
   title: "Components/Actions/Button",
