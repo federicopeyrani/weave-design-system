@@ -1,6 +1,12 @@
 {
   "name": "@weave-ds/react",
   "version": "0.0.0",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Federico Peyrani",
+    "email": "federico.peyrani.fp@gmail.com",
+    "url": "https://peyrani.dev"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
