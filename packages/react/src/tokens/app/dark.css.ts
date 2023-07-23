@@ -1,9 +1,9 @@
 import { core } from "@/tokens/core/index.css";
 import createTokens from "@/utils/createTokens";
 
-import { refTheme } from "./light.css";
+import { appTheme } from "./light.css";
 
-export const refDarkValues = createTokens(refTheme, {
+export const appDarkValues = createTokens(appTheme, {
   color: {
     primary: core.palette.primary40,
     onPrimary: core.palette.primary100,

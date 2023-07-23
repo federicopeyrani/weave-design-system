@@ -1,7 +1,7 @@
 import { core } from "@/tokens/core/index.css";
 import createTokens from "@/utils/createTokens";
 
-export const [refTheme, refLightValues] = createTokens({
+export const [appTheme, appLightValues] = createTokens({
   color: {
     primary: core.palette.primary40,
     onPrimary: core.palette.primary100,

@@ -3,7 +3,7 @@ import type { StyleRule } from "@vanilla-extract/css";
 import type tokens from "@/tokens";
 import { ValuesOf } from "@/utils/Types";
 
-export type ShapeTokens = ValuesOf<typeof tokens.ref.shape>;
+export type ShapeTokens = ValuesOf<typeof tokens.app.shape>;
 
 const applyShapeTokens = ({
   startStart,

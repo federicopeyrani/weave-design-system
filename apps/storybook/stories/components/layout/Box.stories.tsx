@@ -24,12 +24,12 @@ export default {
   },
   render: (args) => (
     <Box
-      style={{ background: `rgb(${tokens.ref.color.primaryContainer})` }}
+      style={{ background: `rgb(${tokens.app.color.primaryContainer})` }}
       {...args}
     >
       <Box
         style={{
-          background: `rgb(${tokens.ref.color.onPrimaryContainer})`,
+          background: `rgb(${tokens.app.color.onPrimaryContainer})`,
           width: 200,
           height: 200,
         }}

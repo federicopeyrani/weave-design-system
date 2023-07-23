@@ -1,8 +1,8 @@
+import { duration } from "@/tokens/app/motion";
 import { core } from "@/tokens/core/index.css";
-import { duration } from "@/tokens/ref/motion";
 import createTokens from "@/utils/createTokens";
 
-export const [refCommon, refCommonValues] = createTokens({
+export const [appCommon, appCommonValues] = createTokens({
   shape: {
     rounded: {
       startStart: core.grid.small3,
