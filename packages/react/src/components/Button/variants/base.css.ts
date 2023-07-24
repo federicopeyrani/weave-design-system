@@ -6,9 +6,9 @@ export const [contract, values] = createTokens({
   container: {
     color: "255 255 255",
     opacity: "1",
-    height: tokens.core.grid.regular5,
-    shape: tokens.ref.shape.rounded,
-    padding: tokens.core.grid.regular2,
+    height: tokens.ref.grid.regular5,
+    shape: tokens.app.shape.rounded,
+    padding: tokens.ref.grid.regular2,
   },
   label: {
     color: "255 255 255",
@@ -16,7 +16,7 @@ export const [contract, values] = createTokens({
     ...schemas.tokens.type,
   },
   transition: {
-    duration: tokens.ref.motion.durationShort2,
+    duration: tokens.app.motion.durationShort2,
   },
   disabled: {
     container: {

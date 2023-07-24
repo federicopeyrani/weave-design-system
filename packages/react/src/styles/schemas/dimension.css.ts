@@ -3,15 +3,15 @@ import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 import { mapValues } from "lodash";
 
 import breakpoints from "@/styles/conditions/breakpoints.css";
-import { core } from "@/tokens/core/index.css";
+import { ref } from "@/tokens/ref/index.css";
 import { SprinkleProps } from "@/utils/Types";
 
 export const dimension = createVar();
 
 export const dimensionOptions = {
   0: "0",
-  1: core.grid.regular1,
-  2: core.grid.regular2,
+  1: ref.grid.regular1,
+  2: ref.grid.regular2,
 } as const;
 
 const dimensionValues = mapValues(dimensionOptions, (value) => ({

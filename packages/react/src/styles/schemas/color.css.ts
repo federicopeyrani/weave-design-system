@@ -1,6 +1,6 @@
 import { createTheme, createThemeContract } from "@vanilla-extract/css";
 
-import { ref } from "@/tokens/ref/index.css";
+import { app } from "@/tokens/app/index.css";
 
 export const color = createThemeContract({
   color: null,
@@ -12,10 +12,10 @@ export const color = createThemeContract({
 const primary = createTheme(
   color,
   {
-    color: ref.color.primary,
-    onColor: ref.color.onPrimary,
-    colorContainer: ref.color.primaryContainer,
-    onColorContainer: ref.color.onPrimaryContainer,
+    color: app.color.primary,
+    onColor: app.color.onPrimary,
+    colorContainer: app.color.primaryContainer,
+    onColorContainer: app.color.onPrimaryContainer,
   },
   "schemas_type_primary"
 );
@@ -23,10 +23,10 @@ const primary = createTheme(
 const secondary = createTheme(
   color,
   {
-    color: ref.color.secondary,
-    onColor: ref.color.onSecondary,
-    colorContainer: ref.color.secondaryContainer,
-    onColorContainer: ref.color.onSecondaryContainer,
+    color: app.color.secondary,
+    onColor: app.color.onSecondary,
+    colorContainer: app.color.secondaryContainer,
+    onColorContainer: app.color.onSecondaryContainer,
   },
   "schemas_type_secondary"
 );
@@ -34,10 +34,10 @@ const secondary = createTheme(
 const error = createTheme(
   color,
   {
-    color: ref.color.error,
-    onColor: ref.color.onError,
-    colorContainer: ref.color.errorContainer,
-    onColorContainer: ref.color.onErrorContainer,
+    color: app.color.error,
+    onColor: app.color.onError,
+    colorContainer: app.color.errorContainer,
+    onColorContainer: app.color.onErrorContainer,
   },
   "schemas_type_error"
 );

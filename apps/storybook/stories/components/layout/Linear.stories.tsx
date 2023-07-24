@@ -6,7 +6,7 @@ import {
   Row as RowComponent,
 } from "@weave-ds/react/src/components";
 
-const palette = Object.entries(tokens.core.palette)
+const palette = Object.entries(tokens.ref.palette)
   .filter(([key]) => key.startsWith("primary"))
   .map(([, value]) => value);
 

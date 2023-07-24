@@ -1,14 +1,14 @@
 import { assignVars, layer } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
-import { core, coreValues } from "@/tokens/core/index.css";
 import {
-  refCommon,
-  refCommonValues,
-  refDarkValues,
-  refLightValues,
-  refTheme,
-} from "@/tokens/ref/index.css";
+  appCommon,
+  appCommonValues,
+  appDarkValues,
+  appLightValues,
+  appTheme,
+} from "@/tokens/app/index.css";
+import { ref, refValues } from "@/tokens/ref/index.css";
 
 export const stylesLayer = layer();
 
@@ -16,12 +16,12 @@ export const styles = recipe({
   base: [
     {
       "@layer": {
-        [stylesLayer]: { vars: assignVars(core, coreValues) },
+        [stylesLayer]: { vars: assignVars(ref, refValues) },
       },
     },
     {
       "@layer": {
-        [stylesLayer]: { vars: assignVars(refCommon, refCommonValues) },
+        [stylesLayer]: { vars: assignVars(appCommon, appCommonValues) },
       },
     },
   ],
@@ -29,12 +29,12 @@ export const styles = recipe({
     theme: {
       light: {
         "@layer": {
-          [stylesLayer]: { vars: assignVars(refTheme, refLightValues) },
+          [stylesLayer]: { vars: assignVars(appTheme, appLightValues) },
         },
       },
       dark: {
         "@layer": {
-          [stylesLayer]: { vars: assignVars(refTheme, refDarkValues) },
+          [stylesLayer]: { vars: assignVars(appTheme, appDarkValues) },
         },
       },
     },

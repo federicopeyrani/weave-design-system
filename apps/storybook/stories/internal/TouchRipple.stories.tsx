@@ -29,7 +29,7 @@ export const Default = {
           width: args.size / 2,
           height: args.size / 2,
           position: "relative",
-          background: `rgb(${tokens.ref.color.primary} / 1)`,
+          background: `rgb(${tokens.app.color.primary} / 1)`,
           overflow: "hidden",
         }}
       >
