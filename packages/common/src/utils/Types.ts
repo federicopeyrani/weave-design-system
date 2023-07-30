@@ -4,9 +4,8 @@ export type Require<T> = Exclude<T, undefined>;
 
 // T: Array<string>
 // Output: string
-export type ArrayType<T extends Array<unknown>> = T extends Array<infer U>
-  ? U
-  : never;
+export type ArrayType<T extends Array<unknown> | readonly unknown[]> =
+  T extends Array<infer U> ? U : T extends readonly (infer U)[] ? U : never;
 
 // T: { a: string, b: number }
 // Output: string | number

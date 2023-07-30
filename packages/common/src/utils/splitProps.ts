@@ -1,3 +1,8 @@
+export default function splitProps<Props extends object, R extends keyof Props>(
+  props: Props,
+  filter: readonly R[]
+): readonly [Pick<Props, R>, Omit<Props, R>];
+
 export default function splitProps<
   Props extends object,
   R extends { [K in keyof Props]?: unknown }
@@ -13,11 +18,6 @@ export default function splitProps<
   >,
   Omit<Props, keyof R>
 ];
-
-export default function splitProps<Props extends object, R extends keyof Props>(
-  props: Props,
-  filter: readonly R[]
-): readonly [Pick<Props, R>, Omit<Props, R>];
 
 export default function splitProps<
   Props extends object,
@@ -44,7 +44,7 @@ export default function splitProps<
 
   const filterObject = Array.isArray(filter)
     ? filter.reduce(
-        (acc, key) => ({ ...acc, [key]: undefined }),
+        (acc, key) => ({ ...acc, [key]: "any" }),
         {} as Record<string, unknown>
       )
     : (filter as Record<string, unknown>);

@@ -1,15 +1,14 @@
 import { ReactDOM, ReactElement } from "react";
 
-import { StyledComponentProps } from "@/components/BaseComponent/BaseComponent";
+import { ExtensibleBaseComponentProps } from "@/components/BaseComponent/BaseComponent";
+import { ComponentType } from "@/model/ComponentType";
 
 export type OverridableComponentProps<
-  Default extends keyof ReactDOM,
-  Type extends keyof ReactDOM = Default
-> = StyledComponentProps &
-  (
-    | ({ as?: never } & JSX.IntrinsicElements[Default])
-    | ({ as: Type } & JSX.IntrinsicElements[Type])
-  );
+  Default extends ComponentType,
+  Type extends ComponentType = Default
+> =
+  | ({ as?: never } & ExtensibleBaseComponentProps<Default>)
+  | ({ as: Type } & ExtensibleBaseComponentProps<Type>);
 
 export interface OverridableComponent<Default extends keyof ReactDOM>
   extends React.FC {

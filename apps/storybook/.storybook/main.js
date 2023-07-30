@@ -25,7 +25,11 @@ const config = {
           __dirname,
           "../../../packages/react/src"
         ),
-        "@": path.resolve(__dirname, "../../../packages/react/src"),
+        "@": [
+          path.resolve(__dirname, "../../../packages/react/src"),
+          path.resolve(__dirname, "../../../packages/styled/src"),
+          path.resolve(__dirname, "../../../packages/common/src"),
+        ],
       },
     },
     plugins: [...baseConfig.plugins, new VanillaExtractPlugin()],

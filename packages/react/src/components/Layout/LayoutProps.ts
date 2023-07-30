@@ -1,8 +1,3 @@
-import {
-  ComponentAttributes,
-  StyledComponentProps,
-} from "@/components/BaseComponent/BaseComponent";
+import { ExtensibleBaseComponentProps } from "@/components/BaseComponent/BaseComponent";
 
-export interface LayoutProps
-  extends StyledComponentProps,
-    ComponentAttributes<HTMLDivElement> {}
+export type LayoutProps = ExtensibleBaseComponentProps<"div">;

@@ -3,11 +3,9 @@
   "pipeline": {
     "lint": {},
     "lint:fix": {},
-    "build": {},
-    "react#build": {
+    "build": {
       "inputs": [
         "src/**",
-        "package.json",
         "tsconfig.json",
         "tsup.config.ts"
       ],

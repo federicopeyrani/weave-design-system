@@ -1,83 +1,53 @@
-import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { cx } from "classix";
-import { createElement, forwardRef, HTMLAttributes, ReactDOM } from "react";
+import { forwardRef, ReactElement, useMemo } from "react";
 
 import { ClassNames } from "@/model/ClassNames";
+import { ComponentType } from "@/model/ComponentType";
+import { RestrictedComponentProps } from "@/model/RestrictedComponentProps";
 import { Styles } from "@/model/Styles";
-import styledComponentClassName, {
-  StyledComponent,
-  styledComponentProps,
-} from "@/styles/styled/component.css";
-import asArray from "@/utils/asArray";
-import splitProps from "@/utils/splitProps";
+import styled from "@/styled";
+import { _StyledComponent } from "@/styles/styled/component.css";
+import { OutputProps } from "@/utils/styledComponentProducer";
 
-interface ComponentArguments<Type extends keyof ReactDOM> {
+interface InternalComponentTypeProps<Type extends ComponentType> {
   as: Type;
-  _className?: BaseComponentProps["className"];
-  _styles?: BaseComponentProps["styles"];
 }
 
-export interface BaseComponentProps {
-  className?: ClassNames;
-  styles?: Styles;
+export interface InternalComponentStyleProps {
+  _className?: ClassNames;
+  _styles?: Styles;
 }
 
-export interface StyledComponentProps
-  extends BaseComponentProps,
-    StyledComponent {}
+export type ExtensibleBaseComponentProps<Type extends ComponentType> =
+  OutputProps<_StyledComponent, RestrictedComponentProps<Type>>;
 
-export type ComponentAttributes<T> = Omit<HTMLAttributes<T>, "className">;
+export type BaseComponentPropsInternal<Type extends ComponentType> =
+  OutputProps<
+    _StyledComponent,
+    InternalComponentTypeProps<Type> &
+      InternalComponentStyleProps &
+      RestrictedComponentProps<Type>
+  >;
 
-type RestrictedComponentProps<Type extends keyof ReactDOM> = Omit<
-  JSX.IntrinsicElements[Type],
-  keyof BaseComponentProps
->;
-
-export type BaseComponentPropsInternal<Type extends keyof ReactDOM> =
-  StyledComponentProps &
-    RestrictedComponentProps<Type> &
-    ComponentArguments<Type>;
-
-interface BaseComponent extends React.FC<BaseComponentPropsInternal<never>> {
-  <Type extends keyof ReactDOM>(
+interface BaseComponent {
+  <Type extends ComponentType>(
     props: BaseComponentPropsInternal<Type>
-  ): JSX.Element;
+  ): ReactElement | null;
 }
 
-const BaseComponent = forwardRef(function BaseComponentRender(
-  {
-    as,
-    _className,
-    className,
-    _styles,
-    styles,
-    style,
-    ...props
-  }: BaseComponentPropsInternal<keyof ReactDOM>,
-  ref
+const BaseComponent = forwardRef(function Render(
+  { as, ...props }: BaseComponentPropsInternal<ComponentType>,
+  ref: BaseComponentPropsInternal<ComponentType>["ref"]
 ) {
-  const [styledProps, otherProps] = splitProps(props, styledComponentProps);
-  const sprinklesClassName = styledComponentClassName(styledProps);
+  const Base = useMemo(
+    () =>
+      styled(as, ({ _className, _styles }) => ({
+        className: _className,
+        styles: _styles,
+      })),
+    [as]
+  );
 
-  return createElement(as, {
-    ref,
-    className: cx(
-      ...asArray(_className),
-      sprinklesClassName,
-      ...asArray(className)
-    ),
-    style:
-      _styles || styles
-        ? {
-            ...assignInlineVars({
-              ...(styles || {}),
-              ...(_styles || {}),
-            }),
-            ...style,
-          }
-        : style,
-    ...otherProps,
-  });
+  return <Base ref={ref} {...props} />;
 }) as BaseComponent;
 
 export default BaseComponent;

@@ -82,6 +82,6 @@ const styledComponentClassName = createSprinkles(
   responsiveProperties
 );
 
-export type StyledComponent = SprinkleProps<typeof styledComponentClassName>;
+export type _StyledComponent = SprinkleProps<typeof styledComponentClassName>;
 
 export default styledComponentClassName;

@@ -1,9 +1,8 @@
 import { useRef } from "react";
 import { AriaButtonProps, useButton } from "react-aria";
 
-import BaseComponent, {
-  StyledComponentProps,
-} from "@/components/BaseComponent/BaseComponent";
+import BaseComponent from "@/components/BaseComponent/BaseComponent";
+import { BaseStyledComponentProps } from "@/components/BaseComponent/BaseStyledComponentProps";
 import TouchRipple from "@/components/TouchRipple/TouchRipple";
 import useTouchRipples from "@/hooks/useTouchRipples";
 import useTouchRippleTrigger from "@/hooks/useTouchRippleTrigger";
@@ -26,7 +25,7 @@ type ButtonTypeSelector = VariantSelector<
   RecipeVariantsNames<typeof buttonClassName, "type">
 >;
 
-export type ButtonProps = StyledComponentProps &
+export type ButtonProps = BaseStyledComponentProps &
   AriaButtonProps<"button"> &
   ButtonVariantsSelector &
   ButtonColorSelector &
