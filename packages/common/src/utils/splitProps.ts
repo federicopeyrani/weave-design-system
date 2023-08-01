@@ -1,9 +1,9 @@
-export default function splitProps<Props extends object, R extends keyof Props>(
+export function splitProps<Props extends object, R extends keyof Props>(
   props: Props,
   filter: readonly R[]
 ): readonly [Pick<Props, R>, Omit<Props, R>];
 
-export default function splitProps<
+export function splitProps<
   Props extends object,
   R extends { [K in keyof Props]?: unknown }
 >(
@@ -19,7 +19,7 @@ export default function splitProps<
   Omit<Props, keyof R>
 ];
 
-export default function splitProps<
+export function splitProps<
   Props extends object,
   R extends Partial<Record<keyof Props, unknown>> | (keyof Props)[]
 >(

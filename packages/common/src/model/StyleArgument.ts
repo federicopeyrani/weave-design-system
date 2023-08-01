@@ -1,5 +1,5 @@
-import { BaseStyledComponentProps } from "@/model/BaseStyledComponentProps";
-import { ClassNames } from "@/model/ClassNames";
+import { BaseStyledComponentProps } from "./BaseStyledComponentProps";
+import { ClassNames } from "./ClassNames";
 
 export type StyleArgument<Arguments, Props> =
   | ClassNames

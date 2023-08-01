@@ -1,14 +1,26 @@
-import { forwardRef, ReactElement, useMemo } from "react";
+import {
+  ComponentProps,
+  ForwardedRef,
+  forwardRef,
+  ReactElement,
+  useMemo,
+} from "react";
 
-import { ClassNames } from "@/model/ClassNames";
+import {
+  CanonicalBaseComponentProps,
+  ClassNames,
+  ForwardedRefStyledComponentProps,
+  RefType,
+  StyledComponentProps,
+} from "@/model/ClassNames";
 import { ComponentType } from "@/model/ComponentType";
-import { RestrictedComponentProps } from "@/model/RestrictedComponentProps";
 import { Styles } from "@/model/Styles";
 import styled from "@/styled";
 import { _StyledComponent } from "@/styles/styled/component.css";
-import { OutputProps } from "@/utils/styledComponentProducer";
 
-interface InternalComponentTypeProps<Type extends ComponentType> {
+interface InternalComponentTypeProps<
+  Type extends ComponentType<CanonicalBaseComponentProps>
+> {
   as: Type;
 }
 
@@ -17,37 +29,44 @@ export interface InternalComponentStyleProps {
   _styles?: Styles;
 }
 
-export type ExtensibleBaseComponentProps<Type extends ComponentType> =
-  OutputProps<_StyledComponent, RestrictedComponentProps<Type>>;
+export type ExtensibleBaseComponentProps<
+  Type extends ComponentType<CanonicalBaseComponentProps>
+> = ForwardedRefStyledComponentProps<_StyledComponent, ComponentProps<Type>>;
 
-export type BaseComponentPropsInternal<Type extends ComponentType> =
-  OutputProps<
-    _StyledComponent,
-    InternalComponentTypeProps<Type> &
-      InternalComponentStyleProps &
-      RestrictedComponentProps<Type>
-  >;
+export type BaseComponentPropsInternal<
+  Type extends ComponentType<CanonicalBaseComponentProps>
+> = StyledComponentProps<
+  _StyledComponent,
+  InternalComponentTypeProps<Type> &
+    InternalComponentStyleProps &
+    ComponentProps<Type>
+>;
 
 interface BaseComponent {
-  <Type extends ComponentType>(
+  <Type extends ComponentType<CanonicalBaseComponentProps>>(
     props: BaseComponentPropsInternal<Type>
   ): ReactElement | null;
 }
 
-const BaseComponent = forwardRef(function Render(
-  { as, ...props }: BaseComponentPropsInternal<ComponentType>,
-  ref: BaseComponentPropsInternal<ComponentType>["ref"]
+const BaseComponent = forwardRef(function Render<
+  Type extends ComponentType<CanonicalBaseComponentProps>
+>(
+  { as, ...props }: BaseComponentPropsInternal<Type>,
+  ref: ForwardedRef<RefType<ComponentProps<Type>>>
 ) {
   const Base = useMemo(
     () =>
-      styled(as, ({ _className, _styles }) => ({
-        className: _className,
-        styles: _styles,
-      })),
+      styled<Type, InternalComponentStyleProps>(
+        as,
+        ({ _className, _styles }) => ({
+          className: _className,
+          styles: _styles,
+        })
+      ),
     [as]
   );
 
   return <Base ref={ref} {...props} />;
-}) as BaseComponent;
+});
 
 export default BaseComponent;

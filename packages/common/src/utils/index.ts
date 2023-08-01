@@ -1,3 +1,9 @@
-export { default as asArray } from "./asArray";
-export { default as splitProps } from "./splitProps";
-export type { ObjectKeys, SprinkleProps } from "./Types";
+// created from 'create-ts-index'
+
+export * from "./asArray";
+export * from "./getStyledComponentProps";
+export * from "./parseStyleArgument";
+export * from "./splitProps";
+export * from "./styledComponentProducer";
+export * from "./styledComponentRenderProducer";
+export * from "./Types";

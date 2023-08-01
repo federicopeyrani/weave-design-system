@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
-import { ClassNames } from "@/model/ClassNames";
-import { Styles } from "@/model/Styles";
+import { ClassNames } from "./ClassNames";
+import { Styles } from "./Styles";
 
 export interface BaseStyledComponentProps {
   className?: ClassNames;

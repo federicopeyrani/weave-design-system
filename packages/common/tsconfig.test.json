@@ -4,9 +4,12 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./src/*",
-        "../common"
+        "./src/*"
       ]
-    }
-  }
+    },
+    "noEmit": true
+  },
+  "include": [
+    "__tests__"
+  ]
 }

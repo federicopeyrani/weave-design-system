@@ -3,7 +3,12 @@
   "pipeline": {
     "lint": {},
     "lint:fix": {},
+    "generate": {},
     "build": {
+      "dependsOn": [
+        "^generate",
+        "lint:fix"
+      ],
       "inputs": [
         "src/**",
         "tsconfig.json",

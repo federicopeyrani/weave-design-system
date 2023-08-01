@@ -1,9 +1,14 @@
 import { createElement, ForwardRefRenderFunction, Ref } from "react";
 
-import { ComponentType } from "@/model/ComponentType";
-import { OutputStyledComponentProps } from "@/model/OutputStyledComponentProps";
-import { StyleArgument } from "@/model/StyleArgument";
-import getStyledComponentProps from "@/utils/getStyledComponentProps";
+import {
+  CanonicalBaseComponentProps,
+  ComponentType,
+  CreateStyledArguments,
+  StyledArguments,
+  StyledComponentProps,
+} from "@/model";
+
+import { getStyledComponentProps } from "./getStyledComponentProps";
 
 export type RefType<Props> = Props extends { ref?: string | Ref<infer R> }
   ? R
@@ -11,35 +16,27 @@ export type RefType<Props> = Props extends { ref?: string | Ref<infer R> }
 
 export type StyledComponentRender<Arguments, Props> = ForwardRefRenderFunction<
   RefType<Props>,
-  OutputStyledComponentProps<Arguments, Props>
+  StyledComponentProps<Arguments, Props>
 >;
 
-export type StyledComponentRenderProducer = <
+export const styledComponentRenderProducer = <
   Arguments,
-  Type extends ComponentType,
-  Props
+  Type extends ComponentType<CanonicalBaseComponentProps>,
+  InternalProps extends object,
+  ExternalProps extends InternalProps
 >(
-  producer: (props: Arguments) => string,
-  styleKeys: readonly (keyof Arguments)[],
-  as: Type,
-  styleArgument: StyleArgument<Arguments, Props>
-) => StyledComponentRender<Arguments, Props>;
-
-const styledComponentRenderProducer: StyledComponentRenderProducer = (
-  producer,
-  styleKeys,
-  as,
-  styleArgument
-) =>
+  ...[resolver, styleKeys, as, ...args]: [
+    ...CreateStyledArguments<Arguments>,
+    ...StyledArguments<Arguments, Type, InternalProps>
+  ]
+): StyledComponentRender<Arguments, ExternalProps> =>
   function StyledComponentRender(props, ref) {
-    const parsedProps = getStyledComponentProps(
-      producer,
-      styleKeys,
-      styleArgument,
-      props
-    );
+    const parsedProps = getStyledComponentProps<
+      Arguments,
+      Type,
+      InternalProps,
+      ExternalProps
+    >(resolver, styleKeys, as, ...args, props);
 
     return createElement(as, { ref, ...parsedProps });
   };
-
-export default styledComponentRenderProducer;

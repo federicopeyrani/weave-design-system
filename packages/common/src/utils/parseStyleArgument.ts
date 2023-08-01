@@ -1,10 +1,10 @@
 import { BaseStyledComponentProps } from "@/model/BaseStyledComponentProps";
 import { StyleArgument } from "@/model/StyleArgument";
 
-const parseStyleArgument = <Arguments, Props>(
+export const parseStyleArgument = <Arguments, Props>(
   styleArgument: StyleArgument<Arguments, Props>,
   props: Props
-): (BaseStyledComponentProps & Arguments) | BaseStyledComponentProps => {
+): BaseStyledComponentProps | (BaseStyledComponentProps & Arguments) => {
   if (
     styleArgument === null ||
     styleArgument === undefined ||
@@ -22,5 +22,3 @@ const parseStyleArgument = <Arguments, Props>(
   const output = styleArgument(props);
   return parseStyleArgument(output, props);
 };
-
-export default parseStyleArgument;

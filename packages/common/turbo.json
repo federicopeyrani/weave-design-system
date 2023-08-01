@@ -1,0 +1,17 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": [
+    "//"
+  ],
+  "pipeline": {
+    "generate": {
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "!src/**/index.{ts,tsx}"
+      ],
+      "outputs": [
+        "src/**/index.{ts,tsx}"
+      ]
+    }
+  }
+}

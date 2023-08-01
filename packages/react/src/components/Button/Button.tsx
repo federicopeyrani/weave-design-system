@@ -1,3 +1,4 @@
+import { splitProps } from "common";
 import { useRef } from "react";
 import { AriaButtonProps, useButton } from "react-aria";
 
@@ -8,7 +9,6 @@ import useTouchRipples from "@/hooks/useTouchRipples";
 import useTouchRippleTrigger from "@/hooks/useTouchRippleTrigger";
 import schemas from "@/styles/schemas";
 import getVariant from "@/utils/getVariant";
-import splitProps from "@/utils/splitProps";
 import type { RecipeVariantsNames, VariantSelector } from "@/utils/Types";
 
 import { buttonClassName, touchRippleClassName } from "./Button.css";

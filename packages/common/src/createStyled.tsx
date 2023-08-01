@@ -1,26 +1,33 @@
+import { ComponentProps } from "react";
+
+import {
+  CanonicalBaseComponentProps,
+  CreateStyledArguments,
+  StyledArguments,
+} from "@/model";
 import { ComponentType } from "@/model/ComponentType";
-import { RestrictedComponentProps } from "@/model/RestrictedComponentProps";
-import { StyleArgument } from "@/model/StyleArgument";
-import styledComponentProducer, {
+import {
   StyledComponent,
+  styledComponentProducer,
 } from "@/utils/styledComponentProducer";
 
 export interface CreateStyled {
-  <Arguments>(
-    producer: (props: Arguments) => string,
-    styleKeys: readonly (keyof Arguments)[]
+  <Arguments = unknown>(
+    ...args: CreateStyledArguments<Arguments>
   ): Styled<Arguments>;
 }
 
-export interface Styled<Arguments> {
-  <Type extends ComponentType, Props = RestrictedComponentProps<Type>>(
-    as: Type,
-    styleArgument: StyleArgument<Arguments, Props>
-  ): StyledComponent<Arguments, Props>;
+export interface Styled<Arguments = unknown> {
+  <
+    Type extends ComponentType<CanonicalBaseComponentProps>,
+    InternalProps extends object = ComponentProps<Type>,
+    ExternalProps extends InternalProps = InternalProps
+  >(
+    ...args: StyledArguments<Arguments, Type, InternalProps>
+  ): StyledComponent<Arguments, ExternalProps>;
 }
 
-const createStyled: CreateStyled =
-  (producer, styleKeys) => (as, styleArgument) =>
-    styledComponentProducer(producer, styleKeys, as, styleArgument);
-
-export default createStyled;
+export const createStyled: CreateStyled =
+  (...createStyledArgs) =>
+  (...styledArgs) =>
+    styledComponentProducer(...createStyledArgs, ...styledArgs);

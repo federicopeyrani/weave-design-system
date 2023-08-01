@@ -1,38 +1,21 @@
+import { forwardRef, ReactElement } from "react";
+
 import {
-  forwardRef,
-  PropsWithoutRef,
-  ReactElement,
-  RefAttributes,
-} from "react";
-
+  CanonicalBaseComponentProps,
+  CreateStyledArguments,
+  ForwardedRefStyledComponentProps,
+  StyledArguments,
+} from "@/model";
 import { ComponentType } from "@/model/ComponentType";
-import { OutputStyledComponentProps } from "@/model/OutputStyledComponentProps";
-import { StyleArgument } from "@/model/StyleArgument";
-import styledComponentRenderProducer, {
-  RefType,
-} from "@/utils/styledComponentRenderProducer";
-
-export interface StyledComponentProducer {
-  <Arguments, Type extends ComponentType, Props>(
-    producer: (props: Arguments) => string,
-    styleKeys: readonly (keyof Arguments)[],
-    as: Type,
-    styleArgument: StyleArgument<Arguments, Props>
-  ): StyledComponent<Arguments, Props>;
-}
-
-export type OutputProps<Arguments, Props> = PropsWithoutRef<
-  OutputStyledComponentProps<Arguments, Props>
-> &
-  RefAttributes<RefType<Props>>;
+import { styledComponentRenderProducer } from "@/utils/styledComponentRenderProducer";
 
 export interface StyledComponent<Arguments, Props> {
-  (props: OutputProps<Arguments, Props>): ReactElement | null;
+  (
+    props: ForwardedRefStyledComponentProps<Arguments, Props>
+  ): ReactElement | null;
 }
 
-const getAsComponentDisplayName = <Type extends ComponentType>(
-  as: Type
-): string => {
+const getAsComponentDisplayName = <Props>(as: ComponentType<Props>): string => {
   if (typeof as === "string") {
     return as;
   }
@@ -48,23 +31,28 @@ const getAsComponentDisplayName = <Type extends ComponentType>(
   return "Component";
 };
 
-const styledComponentProducer: StyledComponentProducer = (
-  producer,
-  styleKeys,
-  as,
-  styleArgument
-) => {
-  const render = styledComponentRenderProducer(
-    producer,
-    styleKeys,
-    as,
-    styleArgument
-  );
+export const styledComponentProducer = <
+  Arguments,
+  Type extends ComponentType<CanonicalBaseComponentProps>,
+  InternalProps extends object,
+  ExternalProps extends InternalProps
+>(
+  ...args: [
+    ...CreateStyledArguments<Arguments>,
+    ...StyledArguments<Arguments, Type, InternalProps>
+  ]
+): StyledComponent<Arguments, ExternalProps> => {
+  const render = styledComponentRenderProducer<
+    Arguments,
+    Type,
+    InternalProps,
+    ExternalProps
+  >(...args);
+
+  const [, , as] = args;
 
   const displayName = getAsComponentDisplayName(as);
   render.displayName = `Styled(${displayName})`;
 
   return forwardRef(render);
 };
-
-export default styledComponentProducer;

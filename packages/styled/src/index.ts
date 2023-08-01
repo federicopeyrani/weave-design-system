@@ -1,3 +1,2 @@
-export type { CreateStyled, Styled } from "@/createStyled";
-export { default as createStyled } from "@/createStyled";
-export type { BaseStyledComponentProps } from "@/model/BaseStyledComponentProps";
+export type { CreateStyled, Styled, StyledComponent } from "common";
+export { createStyled } from "common";

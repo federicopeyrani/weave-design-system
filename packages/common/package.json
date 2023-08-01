@@ -2,7 +2,18 @@
   "name": "common",
   "version": "0.0.0",
   "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
+    "generate": "cti create -b ./src ./src/model ./src/utils",
+    "test": "tsc --project tsconfig.test.json"
+  },
   "peerDependencies": {
     "classix": "^2.1.32"
+  },
+  "devDependencies": {
+    "create-ts-index": "1.14.0"
   }
 }
